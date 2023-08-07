@@ -8,6 +8,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface HeadDrawerProps {
   toggle: boolean;
@@ -23,12 +24,18 @@ export default function HeaderDrawer({ toggle }: HeadDrawerProps) {
     { text: "header.trainers", route: "/trainers" },
   ];
 
+  const navigate = useNavigate();
+
+  const handleNavigate = (route: string) => {
+    navigate(route);
+  };
+
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation">
       <List>
         {drawerOptions.map(({ text, route }, index) => (
           <ListItem key={route} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleNavigate(route)}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
