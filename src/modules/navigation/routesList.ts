@@ -2,6 +2,8 @@ import LoginScreen from "../auth/screens/LoginScreen";
 import HomeScreen from "../home/screens/HomeScreen";
 import HomeIcon from "@mui/icons-material/Home";
 import TeamsScreen from "../teams/screens/TeamsScreen";
+import ForgotPasswordScreen from "../auth/screens/ForgotPasswordScreen";
+import RegisterScreen from "../auth/screens/RegisterScreen";
 
 interface Route {
   path: string;
@@ -18,13 +20,13 @@ export type RoutesListType = {
 };
 
 const routesList = {
-  home: {
-    Icon: HomeIcon,
-    path: "/",
-    drawerName: "Home",
-    title: "Home",
-    Component: HomeScreen,
-  },
+  // home: {
+  //   Icon: HomeIcon,
+  //   path: "/",
+  //   drawerName: "Home",
+  //   title: "Home",
+  //   Component: HomeScreen,
+  // },
   club: {
     Icon: HomeIcon,
     path: "/club",
@@ -47,14 +49,22 @@ const routesList = {
     Component: HomeScreen,
   },
   login: {
-    path: "/login",
+    path: "/",
     Component: LoginScreen,
     noHeader: true,
+  },
+  register: {
+    path: "/register",
+    Component: RegisterScreen,
   },
   teams: {
     noHeader: true,
     path: "/teams",
     Component: TeamsScreen,
+  },
+  forgotPassword: {
+    path: "/forgotPassword",
+    Component: ForgotPasswordScreen,
   },
 };
 

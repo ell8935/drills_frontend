@@ -1,7 +1,12 @@
-import React from "react";
+import AuthScreensWrapper from "../components/AuthScreensWrapper";
+import LoginForm from "../components/LoginForm";
 
 const LoginScreen = () => {
-  return <div></div>;
+  return (
+    <AuthScreensWrapper>
+      <LoginForm />
+    </AuthScreensWrapper>
+  );
 };
 
 export default LoginScreen;
