@@ -1,25 +1,32 @@
 import { Stack } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { emailInDb } from "../api/emailInDb";
 import useForm from "../../../shared/hooks/useForm";
 import { emailValidation } from "../validation/emailValidation";
-import { Alert, Button, Divider, TextField, Typography } from "@mui/material";
+import { Alert, Button, Divider, Typography } from "@mui/material";
 import RegisterFormStyled from "../styles/RegisterFormStyled";
+import CustomTextField from "../../../shared/components/CustomTextField";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [status, setStatus] = useState("");
-  const { errors, form, handleOnBlur, handleOnChange, isFormValid } = useForm({
+  const { errors, form, handleOnBlur, handleOnChange, isFormValid, setForm } = useForm({
     initialState: { email: "" },
     schema: emailValidation,
   });
+  useEffect(() => {
+    notify();
+  }, []);
+  const notify = () => toast("Wow so easy!");
 
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (await isFormValid()) {
       try {
-        await emailInDb(form.email);
-        // setForm(form);
+        await emailInDb(form.email); // Checking if there is already a user registered under this email
+        setForm(form);
       } catch (err: any) {
         setStatus(err.response.data.message);
       }
@@ -29,7 +36,7 @@ const RegisterForm = () => {
   return (
     <RegisterFormStyled>
       <Typography noWrap variant="h3" alignSelf={"center"} overflow={"visible"}>
-        WELCOME TO REEMODELING
+        WELCOME TO DRILLS
       </Typography>
       <Typography alignSelf={"center"} variant="h6">
         Get Started with your free plan
@@ -39,25 +46,31 @@ const RegisterForm = () => {
         <div>
           <Divider>OR</Divider>
         </div>
-        <TextField
+        <CustomTextField
           className="email"
           name="email"
           type="email"
           label="Email address"
-          error={!!errors.email}
+          error={errors.email}
           onBlur={handleOnBlur}
           onChange={handleOnChange}
           helperText={errors.email}
           fullWidth
         />
+        <CustomTextField
+          className="password"
+          name="password"
+          label="Password"
+          error={errors.password}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
+          helperText={errors.password}
+          fullWidth
+          isPassword
+        />
 
         {status && <Alert severity="error">{status}</Alert>}
-        <Button
-          variant="contained"
-          onClick={handleOnSubmit}
-          type="submit"
-          fullWidth
-        >
+        <Button variant="contained" onClick={handleOnSubmit} type="submit" fullWidth>
           Continue
         </Button>
       </form>

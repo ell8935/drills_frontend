@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import routesList from "./routesList";
 import Header from "../../shared/components/Header/Header";
+import { ToastContainer, toast } from "react-toastify";
 
 const AppRoutes = () => {
   return (
