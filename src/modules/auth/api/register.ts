@@ -1,11 +1,18 @@
 import axios from "axios";
 
-const register = async (form: any) =>
+interface RegisterProps {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+}
+
+const register = async (form: RegisterProps): Promise<void> =>
   axios({
     data: form,
     method: "POST",
-    url: "register",
-    baseURL: "http://localhost:5000/",
+    url: "auth/register",
+    baseURL: process.env.REACT_APP_BASE_URL,
   });
 
 export { register };

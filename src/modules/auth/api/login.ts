@@ -1,17 +1,11 @@
 import axios from "axios";
 
-const login = async ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) =>
+const login = async ({ email, password }: { email: string; password: string }) =>
   axios({
     data: { email, password },
     method: "POST",
-    url: "authUser",
-    baseURL: "http://localhost:5000/",
+    url: "auth/login",
+    baseURL: process.env.REACT_APP_BASE_URL,
   });
 
 export { login };

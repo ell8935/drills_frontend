@@ -39,16 +39,9 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const { data } = await login(form);
-
-      if (data.token) {
-        // signIn({
-        //   token: data.token,
-        //   expiresIn: 3600,
-        //   tokenType: "Bearer",
-        //   authState: { email: form.email },
-        // });
-        navigate("/dashboard");
+      const { data } = await login({ email: form.email, password: form.password });
+      if (data.access_token) {
+        navigate("/club");
       }
     } catch (err: any) {
       setStatus(err.response.data.message);
@@ -96,12 +89,7 @@ const LoginForm = () => {
         />
         {status && <Alert severity="error">{status}</Alert>}
         <Link to={"/forgotPassword"}>Forgot your password?</Link>
-        <Button
-          variant="contained"
-          onClick={handleOnSubmit}
-          type="submit"
-          fullWidth
-        >
+        <Button variant="contained" onClick={handleOnSubmit} type="submit" fullWidth>
           Continue
         </Button>
       </form>

@@ -8,11 +8,12 @@ import { Alert, Button, Divider, Typography } from "@mui/material";
 import RegisterFormStyled from "../styles/RegisterFormStyled";
 import CustomTextField from "../../../shared/components/CustomTextField";
 import { toast } from "react-toastify";
+import { register } from "../api/register";
 
 const RegisterForm = () => {
   const [status, setStatus] = useState("");
   const { errors, form, handleOnBlur, handleOnChange, isFormValid, setForm } = useForm({
-    initialState: { email: "" },
+    initialState: { email: "", password: "" },
     schema: emailValidation,
   });
   useEffect(() => {
@@ -25,8 +26,8 @@ const RegisterForm = () => {
 
     if (await isFormValid()) {
       try {
-        await emailInDb(form.email); // Checking if there is already a user registered under this email
-        setForm(form);
+        await register({ email: form.email, password: form.password });
+        // Checking if there is already a user registered under this email
       } catch (err: any) {
         setStatus(err.response.data.message);
       }
