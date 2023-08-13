@@ -1,7 +1,6 @@
 import { Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { emailInDb } from "../api/emailInDb";
 import useForm from "../../../shared/hooks/useForm";
 import { emailValidation } from "../validation/emailValidation";
 import { Alert, Button, Divider, Typography } from "@mui/material";
@@ -12,7 +11,7 @@ import { register } from "../api/register";
 
 const RegisterForm = () => {
   const [status, setStatus] = useState("");
-  const { errors, form, handleOnBlur, handleOnChange, isFormValid, setForm } = useForm({
+  const { errors, form, handleOnBlur, handleOnChange, isFormValid } = useForm({
     initialState: { email: "", password: "" },
     schema: emailValidation,
   });
@@ -26,7 +25,10 @@ const RegisterForm = () => {
 
     if (await isFormValid()) {
       try {
-        await register({ email: form.email, password: form.password });
+        const { data } = await register({ email: form.email, password: form.password });
+        console.log(data);
+
+        setStatus(data.message);
         // Checking if there is already a user registered under this email
       } catch (err: any) {
         setStatus(err.response.data.message);

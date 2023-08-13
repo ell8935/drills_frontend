@@ -7,7 +7,7 @@ interface RegisterProps {
   lastName?: string;
 }
 
-const register = async (form: RegisterProps): Promise<void> =>
+const register = async (form: RegisterProps): Promise<{ data: { user: RegisterProps; message: string } }> =>
   axios({
     data: form,
     method: "POST",

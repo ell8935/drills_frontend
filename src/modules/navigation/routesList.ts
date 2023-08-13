@@ -4,6 +4,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import TeamsScreen from "../teams/screens/TeamsScreen";
 import ForgotPasswordScreen from "../auth/screens/ForgotPasswordScreen";
 import RegisterScreen from "../auth/screens/RegisterScreen";
+import ClubCreationScreen from "../club/screens/ClubCreationScreen/ClubCreationScreen";
 
 interface Route {
   path: string;
@@ -33,6 +34,12 @@ const routesList = {
     drawerName: "Club",
     title: "Club",
     Component: HomeScreen,
+  },
+  createClub: {
+    Icon: HomeIcon,
+    path: "/createClub",
+    drawerName: "Club",
+    Component: ClubCreationScreen,
   },
   drills: {
     Icon: HomeIcon,

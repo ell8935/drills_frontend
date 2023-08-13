@@ -8,7 +8,8 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Divider } from "@mui/material";
 
 interface HeadDrawerProps {
   toggle: boolean;
@@ -36,13 +37,24 @@ export default function HeaderDrawer({ toggle }: HeadDrawerProps) {
         {drawerOptions.map(({ text, route }, index) => (
           <ListItem key={route} disablePadding>
             <ListItemButton onClick={() => handleNavigate(route)}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={t(text)} />
             </ListItemButton>
           </ListItem>
         ))}
+      </List>
+      <Divider />
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={() => {
+              navigate("/createClub");
+            }}
+          >
+            <ListItemIcon>{<MailIcon />}</ListItemIcon>
+            <ListItemText primary={"Create a Club"} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Divider, Typography, Alert } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api/login";
-// import { useSignIn } from "react-auth-kit";
 import LoginFormStyled from "../styles/LoginFormStyled";
 import useForm from "../../../shared/hooks/useForm";
 import CustomTextField from "../../../shared/components/CustomTextField";
@@ -16,7 +15,6 @@ import { emailValidation } from "../validation/emailValidation";
 // }
 //> every request using the above
 const LoginForm = () => {
-  // const signIn = useSignIn();
   const navigate = useNavigate();
   const [status, setStatus] = useState("");
   const { form, handleOnBlur, handleOnChange, errors } = useForm({
@@ -25,10 +23,6 @@ const LoginForm = () => {
   });
 
   const handleSuccess = async (tokenResponse: any) => {
-    //send tokenResponse to server and get JWT and refresh token
-    // after that dispatch all the user details and the refresh and jwt token
-    // dispatch(setAuth(user))
-
     navigate("/club");
   };
 
