@@ -12,7 +12,6 @@ const register = async (form: RegisterProps): Promise<{ data: { user: RegisterPr
     data: form,
     method: "POST",
     url: "auth/register",
-    baseURL: process.env.REACT_APP_BASE_URL,
   });
 
 export { register };

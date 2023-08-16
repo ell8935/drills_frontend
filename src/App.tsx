@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
-import Header from "./shared/components/Header/Header";
 import { useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import AppRoutes from "./modules/navigation/AppRoutes";
-import { QueryClient, QueryClientProvider } from "react-query";
 import theme from "./shared/theme";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { ToastContainer } from "react-toastify";
+import axios from "axios";
+import { getToken } from "./shared/utils/localStorageUtils";
+import { QueryClientProvider, QueryClient } from "react-query";
 
 function App() {
   const { i18n } = useTranslation();
@@ -15,16 +15,16 @@ function App() {
     i18n.changeLanguage(navigator.language);
   }, [i18n]);
 
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+  axios.defaults.headers["Authorization"] = getToken();
+
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <GoogleOAuthProvider
-          clientId={process.env.REACT_APP_GOOGLE_OAUTH_PROVIDER_CLIENT_ID!}
-        >
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_OAUTH_PROVIDER_CLIENT_ID!}>
           <AppRoutes />
-          <ToastContainer />
         </GoogleOAuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

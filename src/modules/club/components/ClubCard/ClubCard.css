@@ -1,0 +1,16 @@
+.club-card {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .club-card.hovered {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .club-details {
+    font-family: Arial, sans-serif;
+  }
+  

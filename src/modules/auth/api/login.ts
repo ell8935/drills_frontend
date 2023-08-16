@@ -5,7 +5,6 @@ const login = async ({ email, password }: { email: string; password: string }) =
     data: { email, password },
     method: "POST",
     url: "auth/login",
-    baseURL: process.env.REACT_APP_BASE_URL,
   });
 
 export { login };

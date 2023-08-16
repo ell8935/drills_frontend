@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Button, Divider, Typography, Alert } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,13 +8,8 @@ import useForm from "../../../shared/hooks/useForm";
 import CustomTextField from "../../../shared/components/CustomTextField";
 import { GoogleLogin } from "@react-oauth/google";
 import { emailValidation } from "../validation/emailValidation";
+import { setToken } from "../../../shared/utils/localStorageUtils";
 
-//login > backend jwt generation using the secret and returns to the UI the token >
-//in front end
-// if (token) {
-//   config.headers.Authorization = token;
-// }
-//> every request using the above
 const LoginForm = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState("");
@@ -34,7 +30,10 @@ const LoginForm = () => {
 
     try {
       const { data } = await login({ email: form.email, password: form.password });
+
       if (data.access_token) {
+        setToken(data.access_token);
+        axios.defaults.headers["Authorization"] = data.access_token;
         navigate("/club");
       }
     } catch (err: any) {

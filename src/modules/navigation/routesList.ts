@@ -5,6 +5,8 @@ import TeamsScreen from "../teams/screens/TeamsScreen";
 import ForgotPasswordScreen from "../auth/screens/ForgotPasswordScreen";
 import RegisterScreen from "../auth/screens/RegisterScreen";
 import ClubCreationScreen from "../club/screens/ClubCreationScreen/ClubCreationScreen";
+import ClubScreen from "../club/screens/ClubsScreen";
+import { UsersScreen } from "../users/screens/UsersScreen/UsersScreen";
 
 interface Route {
   path: string;
@@ -21,19 +23,24 @@ export type RoutesListType = {
 };
 
 const routesList = {
-  // home: {
-  //   Icon: HomeIcon,
-  //   path: "/",
-  //   drawerName: "Home",
-  //   title: "Home",
-  //   Component: HomeScreen,
-  // },
+  home: {
+    Icon: HomeIcon,
+    path: "/",
+    Component: HomeScreen,
+  },
   club: {
     Icon: HomeIcon,
     path: "/club",
     drawerName: "Club",
     title: "Club",
     Component: HomeScreen,
+  },
+  clubs: {
+    Icon: HomeIcon,
+    path: "/clubs",
+    drawerName: "Clubs",
+    title: "Clubs",
+    Component: ClubScreen,
   },
   createClub: {
     Icon: HomeIcon,
@@ -56,13 +63,17 @@ const routesList = {
     Component: HomeScreen,
   },
   login: {
-    path: "/",
+    path: "/login",
     Component: LoginScreen,
     noHeader: true,
   },
   register: {
     path: "/register",
     Component: RegisterScreen,
+  },
+  users: {
+    path: "/users",
+    Component: UsersScreen,
   },
   teams: {
     noHeader: true,

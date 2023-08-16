@@ -15,10 +15,6 @@ const RegisterForm = () => {
     initialState: { email: "", password: "" },
     schema: emailValidation,
   });
-  useEffect(() => {
-    notify();
-  }, []);
-  const notify = () => toast("Wow so easy!");
 
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

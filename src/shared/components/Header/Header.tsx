@@ -9,17 +9,20 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useState } from "react";
 import HeaderDrawer from "../HeaderDrawer/HeaderDrawer";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
   };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    navigate("/login");
     setAnchorEl(event.currentTarget);
   };
 
@@ -27,18 +30,16 @@ export default function Header() {
     setAnchorEl(null);
   };
 
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event.type === "keydown" &&
+      ((event as React.KeyboardEvent).key === "Tab" || (event as React.KeyboardEvent).key === "Shift")
+    ) {
+      return;
+    }
 
-      setToggle(!toggle);
-    };
+    setToggle(!toggle);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -15,12 +15,9 @@ interface CreateClubProps {
   contactInformation: string;
 }
 
-const createClub = async (form: CreateClubProps) =>
+export const createClub = async (form: CreateClubProps) =>
   axios({
     data: form,
     method: "POST",
-    url: "auth/register",
-    baseURL: process.env.REACT_APP_BASE_URL,
+    url: "club/create",
   });
-
-export { createClub };

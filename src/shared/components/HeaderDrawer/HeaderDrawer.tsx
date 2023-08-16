@@ -10,6 +10,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Divider } from "@mui/material";
+import { removeToken } from "../../utils/localStorageUtils";
 
 interface HeadDrawerProps {
   toggle: boolean;
@@ -23,6 +24,9 @@ export default function HeaderDrawer({ toggle }: HeadDrawerProps) {
     { text: "header.drills", route: "/drills" },
     { text: "header.teams", route: "/teams" },
     { text: "header.trainers", route: "/trainers" },
+    { text: "header.createClub", route: "/createClub" },
+    { text: "header.clubs", route: "/clubs" },
+    { text: "header.UsersScreen", route: "/users" },
   ];
 
   const navigate = useNavigate();
@@ -48,11 +52,11 @@ export default function HeaderDrawer({ toggle }: HeadDrawerProps) {
         <ListItem disablePadding>
           <ListItemButton
             onClick={() => {
-              navigate("/createClub");
+              removeToken();
             }}
           >
             <ListItemIcon>{<MailIcon />}</ListItemIcon>
-            <ListItemText primary={"Create a Club"} />
+            <ListItemText primary={"Logout"} />
           </ListItemButton>
         </ListItem>
       </List>

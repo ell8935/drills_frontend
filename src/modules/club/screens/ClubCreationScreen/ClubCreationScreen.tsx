@@ -5,22 +5,22 @@ import { emailValidation } from "../../../auth/validation/emailValidation";
 import useForm from "../../../../shared/hooks/useForm";
 import { createClub } from "../../api/createClub";
 
-const ClubScreen = () => {
+const ClubCreationScreen = () => {
   const [status, setStatus] = useState("");
   const { errors, form, handleOnBlur, handleOnChange, isFormValid } = useForm({
     initialState: {
-      clubName: "",
-      sport: "",
-      clubManager: "",
-      clubAdmin: "",
-      teamsCount: 0,
-      playersCount: 0,
-      league: "",
-      city: "",
-      country: "",
-      logo: "",
-      description: "",
-      contactInformation: "",
+      clubName: "asd",
+      sport: "asd",
+      clubManager: "asd",
+      clubAdmin: "asd",
+      teamsCount: 2,
+      playersCount: 3,
+      league: "asd",
+      city: "asd",
+      country: "asd",
+      logo: "asd",
+      description: "asd",
+      contactInformation: "asd",
     },
   });
 
@@ -29,6 +29,8 @@ const ClubScreen = () => {
 
     // if (await isFormValid()) {
     try {
+      console.log(form);
+
       const { data } = await createClub(form);
       console.log(data);
       setStatus(data.message);
@@ -40,7 +42,6 @@ const ClubScreen = () => {
 
   return (
     <div>
-      {" "}
       <form>
         <CustomTextField
           className="clubName"
@@ -172,4 +173,4 @@ const ClubScreen = () => {
   );
 };
 
-export default ClubScreen;
+export default ClubCreationScreen;
