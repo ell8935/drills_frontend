@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { getClubs } from "../api/getClubs";
-import { Club } from "../types/club.types";
-import ClubCard from "../components/ClubCard/ClubCard";
-import { Button } from "@mui/material";
-import { getClubsBySport } from "../api/getClubsBySport";
-import { toast } from "react-toastify";
+import { getClubs } from "../../api/getClubs";
+import { Club } from "../../types/club.types";
+import ClubCard from "../../components/ClubCard/ClubCard";
+import { useNavigate } from "react-router-dom";
 
 const ClubsScreen = () => {
   const [clubs, setClubs] = useState<Club[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchClubs = async () => {
@@ -22,16 +21,14 @@ const ClubsScreen = () => {
     fetchClubs();
   }, []);
 
-  const handleOnClick = async () => {
-    // const data = await getClubsBySport("Volleyball");
-    // console.log(data);
+  const handleNavigateToClub = async (clubId: string) => {
+    navigate(`/club/${clubId}`);
   };
 
   return (
     <div>
-      <Button onClick={handleOnClick}>Volleyball </Button>
       {clubs.map((club: Club) => (
-        <ClubCard key={club.clubId} club={club} />
+        <ClubCard onClick={() => handleNavigateToClub(club.clubId)} key={club.clubId} club={club} />
       ))}
     </div>
   );

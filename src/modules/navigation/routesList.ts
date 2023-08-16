@@ -5,8 +5,10 @@ import TeamsScreen from "../teams/screens/TeamsScreen";
 import ForgotPasswordScreen from "../auth/screens/ForgotPasswordScreen";
 import RegisterScreen from "../auth/screens/RegisterScreen";
 import ClubCreationScreen from "../club/screens/ClubCreationScreen/ClubCreationScreen";
-import ClubScreen from "../club/screens/ClubsScreen";
 import { UsersScreen } from "../users/screens/UsersScreen/UsersScreen";
+import ClubsScreen from "../club/screens/ClubsScreen/ClubsScreen";
+import ClubScreen from "../club/screens/ClubScreen/ClubScreen";
+import ClubUpdateScreen from "../club/screens/ClubUpdateScreen/ClubUpdateScreen";
 
 interface Route {
   path: string;
@@ -30,23 +32,29 @@ const routesList = {
   },
   club: {
     Icon: HomeIcon,
-    path: "/club",
+    path: "/club/:id",
     drawerName: "Club",
     title: "Club",
-    Component: HomeScreen,
+    Component: ClubScreen,
   },
   clubs: {
     Icon: HomeIcon,
     path: "/clubs",
     drawerName: "Clubs",
     title: "Clubs",
-    Component: ClubScreen,
+    Component: ClubsScreen,
   },
   createClub: {
     Icon: HomeIcon,
     path: "/createClub",
     drawerName: "Club",
     Component: ClubCreationScreen,
+  },
+  updateClub: {
+    Icon: HomeIcon,
+    path: "/updateClub/:id",
+    drawerName: "Club",
+    Component: ClubUpdateScreen,
   },
   drills: {
     Icon: HomeIcon,

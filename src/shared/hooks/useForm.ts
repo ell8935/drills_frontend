@@ -31,8 +31,10 @@ const useForm = <T>({ schema, initialState = {} as T }: Props<T>) => {
   };
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { value, name, type } = e.target;
+    const newValue = type === "number" ? parseInt(value) : value;
+
+    setForm((prev) => ({ ...prev, [name]: newValue }));
   };
 
   const handleOnBlur = async (event: React.FocusEvent<HTMLInputElement>) => {

@@ -1,12 +1,11 @@
 import { Stack } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useForm from "../../../shared/hooks/useForm";
 import { emailValidation } from "../validation/emailValidation";
 import { Alert, Button, Divider, Typography } from "@mui/material";
 import RegisterFormStyled from "../styles/RegisterFormStyled";
 import CustomTextField from "../../../shared/components/CustomTextField";
-import { toast } from "react-toastify";
 import { register } from "../api/register";
 
 const RegisterForm = () => {
@@ -22,10 +21,7 @@ const RegisterForm = () => {
     if (await isFormValid()) {
       try {
         const { data } = await register({ email: form.email, password: form.password });
-        console.log(data);
-
         setStatus(data.message);
-        // Checking if there is already a user registered under this email
       } catch (err: any) {
         setStatus(err.response.data.message);
       }
