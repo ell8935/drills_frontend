@@ -83,6 +83,7 @@ const ClubCreationScreen = () => {
           className="teamsCount"
           name="teamsCount"
           label="Teams Count"
+          type="number"
           error={errors.teamsCount}
           onBlur={handleOnBlur}
           onChange={handleOnChange}
@@ -93,6 +94,7 @@ const ClubCreationScreen = () => {
           className="playersCount"
           name="playersCount"
           label="PlayersCount"
+          type="number"
           error={errors.playersCount}
           onBlur={handleOnBlur}
           onChange={handleOnChange}
