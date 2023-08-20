@@ -2,17 +2,18 @@ export interface Club {
   clubId: string;
   clubName: string;
   sport: string;
-  clubManager: string;
-  clubAdmin: string;
-  teamsCount: number;
-  playersCount: number;
   league: string;
   city: string;
   country: string;
   logo: string;
   description: string;
-  contactInformation: string;
+  foundedAt: Date;
+  website: string;
+  email: string;
+  phoneNumber: string;
 }
+
+export type CreateClubProps = Omit<Club, "clubId">;
 
 export interface Player {
   id: string;

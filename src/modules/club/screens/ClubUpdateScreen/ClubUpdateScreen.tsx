@@ -25,7 +25,7 @@ const ClubUpdateScreen = () => {
       contactInformation: "asd",
     },
   });
-  const [UpdateClub, { data, error, loading }] = useMutation(UPDATE_CLUB, {
+  const [UpdateClub, { error, loading }] = useMutation(UPDATE_CLUB, {
     variables: { updateClubInput: { ...form, clubId: id } },
   });
 

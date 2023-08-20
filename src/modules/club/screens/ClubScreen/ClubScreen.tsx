@@ -1,30 +1,30 @@
-import { useClub } from "../../hooks/useClub";
 import { useNavigate, useParams } from "react-router-dom";
 import NotFound404 from "../../../auth/screens/NotFound404/NotFound404";
-import ClubTree from "../../components/ClubTabs/ClubTabs";
+import ClubTabs from "../../components/ClubTabs/ClubTabs";
 import ClubCard from "../../components/ClubCard/ClubCard";
+import mockOrganizationalData from "../../../../shared/mockData/mockData";
+import { useUserRolesInClub } from "../../hooks/useUserClubRoles";
 
 const ClubScreen = () => {
   const { id } = useParams();
-  const { data, error, loading } = useClub(id!);
+  const { loading, error, data } = useUserRolesInClub({ clubId: id, userId: "8556ed80-5091-48e6-bb23-215da7a9078d" });
   const navigate = useNavigate();
 
-  //fetch OrganizationalData with useClub
-  //useDispatch to the data to store
+  const handleNavigate = () => {
+    navigate(`/updateClub/${id}`);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  if (!data?.findOneById) {
+  if (!data.userClubRoles) {
     return <NotFound404 />;
   }
-  const handleNavigate = () => {
-    navigate(`/updateClub/${id}`);
-  };
+
   return (
     <div>
-      <ClubCard onClick={handleNavigate} club={data.findOneById} />
-      <ClubTree />
+      <ClubCard onClick={handleNavigate} club={data.userClubRoles} />
+      <ClubTabs data={mockOrganizationalData} />
     </div>
   );
 };

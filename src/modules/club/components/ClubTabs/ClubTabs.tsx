@@ -1,24 +1,13 @@
-import React, { useState } from "react";
-import { Tab, Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import React from "react";
+import { Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
-import mockOrganizationalData from "../../../../shared/mockData/mockData";
 import TabData from "./TabData";
 
-const ClubTabs = () => {
-  //useSelector to get the data for the managers
-  const club = mockOrganizationalData;
-
+const ClubTabs = ({ data }: any) => {
   const [tab, setTab] = React.useState("1");
-
-  const [expandedAccordion, setExpandedAccordion] = useState<string | false>(false);
-
-  const handleAccordionChange = (panel: string) => (event: React.SyntheticEvent | MouseEvent, isExpanded: boolean) => {
-    setExpandedAccordion(isExpanded ? panel : false);
-  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setTab(newValue);
@@ -36,22 +25,7 @@ const ClubTabs = () => {
           </TabList>
         </Box>
         <TabPanel value="1">
-          {club.managers.map((manager) => (
-            <Accordion
-              key={manager.id}
-              expanded={expandedAccordion === manager.id}
-              onChange={handleAccordionChange(manager.id)}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls={`${manager.id}-content`}
-                id={`${manager.id}-header`}
-              >
-                <Typography>{manager.name}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>{/* Render trainers, teams, and players here */}</AccordionDetails>
-            </Accordion>
-          ))}
+          <TabData entity="manager" />
         </TabPanel>
         <TabPanel value="2">
           <TabData entity="trainer" />
@@ -60,7 +34,7 @@ const ClubTabs = () => {
           <TabData entity="team" />
         </TabPanel>
         <TabPanel value="4">
-          <TabData entity="player" />r
+          <TabData entity="player" />
         </TabPanel>
       </TabContext>
     </div>

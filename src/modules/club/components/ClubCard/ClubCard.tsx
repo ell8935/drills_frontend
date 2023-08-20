@@ -48,15 +48,10 @@ const ClubCard: React.FC<ClubCardProps> = ({ club, onClick, editable = false }) 
         <div className={classes.clubDetails}>
           <Typography variant="h5">{club.clubName}</Typography>
           <Typography variant="body1">Sport: {club.sport}</Typography>
-          <Typography variant="body1">Manager: {club.clubManager}</Typography>
-          <Typography variant="body1">Admin: {club.clubAdmin}</Typography>
-          <Typography variant="body1">Teams Count: {club.teamsCount}</Typography>
-          <Typography variant="body1">Players Count: {club.playersCount}</Typography>
           <Typography variant="body1">League: {club.league}</Typography>
           <Typography variant="body1">City: {club.city}</Typography>
           <Typography variant="body1">Country: {club.country}</Typography>
           <Typography variant="body1">Description: {club.description}</Typography>
-          <Typography variant="body1">Contact: {club.contactInformation}</Typography>
         </div>
       </CardContent>
     </Card>

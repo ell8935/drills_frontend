@@ -10,16 +10,15 @@ const ClubCreationScreen = () => {
     initialState: {
       clubName: "asd",
       sport: "asd",
-      clubManager: "asd",
-      clubAdmin: "asd",
-      teamsCount: 2,
-      playersCount: 3,
       league: "asd",
       city: "asd",
       country: "asd",
       logo: "asd",
       description: "asd",
-      contactInformation: "asd",
+      foundedAt: new Date(),
+      website: "asd",
+      email: "ssad",
+      phoneNumber: "asd",
     },
   });
 
