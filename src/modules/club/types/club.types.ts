@@ -7,7 +7,7 @@ export interface Club {
   country: string;
   logo: string;
   description: string;
-  foundedAt: Date;
+  foundedAt: string;
   website: string;
   email: string;
   phoneNumber: string;

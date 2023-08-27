@@ -15,7 +15,7 @@ const ClubCreationScreen = () => {
       country: "asd",
       logo: "asd",
       description: "asd",
-      foundedAt: new Date(),
+      foundedAt: "1992",
       website: "asd",
       email: "ssad",
       phoneNumber: "asd",
@@ -58,48 +58,7 @@ const ClubCreationScreen = () => {
           helperText={errors.sport}
           fullWidth
         />
-        <CustomTextField
-          className="clubManager"
-          name="clubManager"
-          label="Club Manager"
-          error={errors.clubManager}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          helperText={errors.clubManager}
-          fullWidth
-        />
-        <CustomTextField
-          className="clubAdmin"
-          name="clubAdmin"
-          label="Club Admin"
-          error={errors.clubAdmin}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          helperText={errors.clubAdmin}
-          fullWidth
-        />
-        <CustomTextField
-          className="teamsCount"
-          name="teamsCount"
-          label="Teams Count"
-          type="number"
-          error={errors.teamsCount}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          helperText={errors.teamsCount}
-          fullWidth
-        />
-        <CustomTextField
-          className="playersCount"
-          name="playersCount"
-          label="PlayersCount"
-          type="number"
-          error={errors.playersCount}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          helperText={errors.playersCount}
-          fullWidth
-        />
+
         <CustomTextField
           className="league"
           name="league"
@@ -151,13 +110,44 @@ const ClubCreationScreen = () => {
           fullWidth
         />
         <CustomTextField
-          className="contactInformation"
-          name="contactInformation"
-          label="contactInformation"
-          error={errors.contactInformation}
+          className="foundedAt"
+          name="foundedAt"
+          label="Founded at"
+          error={errors.foundedAt}
           onBlur={handleOnBlur}
           onChange={handleOnChange}
-          helperText={errors.contactInformation}
+          helperText={errors.foundedAt}
+          fullWidth
+        />
+        <CustomTextField
+          className="website"
+          name="website"
+          label="Website"
+          error={errors.website}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
+          helperText={errors.website}
+          fullWidth
+        />
+        <CustomTextField
+          className="email"
+          name="email"
+          label="Email"
+          error={errors.email}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
+          helperText={errors.email}
+          fullWidth
+        />
+        <CustomTextField
+          className="phoneNumber"
+          name="phoneNumber"
+          label="Phone Number"
+          type="number"
+          error={errors.phoneNumber}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
+          helperText={errors.phoneNumber}
           fullWidth
         />
 

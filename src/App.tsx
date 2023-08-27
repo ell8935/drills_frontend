@@ -16,7 +16,7 @@ function App() {
   }, [i18n]);
 
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-  axios.defaults.headers["Authorization"] = getToken();
+  axios.defaults.headers["Authorization"] = `Bearer ${getToken()}`;
 
   const queryClient = new QueryClient();
 

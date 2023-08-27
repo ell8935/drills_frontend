@@ -2,8 +2,6 @@ import { useState } from "react";
 import CustomTextField from "../../../../shared/components/CustomTextField";
 import { Alert, Button } from "@mui/material";
 import useForm from "../../../../shared/hooks/useForm";
-import { useMutation } from "@apollo/client";
-import { UPDATE_CLUB } from "../../queries/updateClub";
 import { useParams } from "react-router-dom";
 
 const ClubUpdateScreen = () => {
@@ -25,28 +23,28 @@ const ClubUpdateScreen = () => {
       contactInformation: "asd",
     },
   });
-  const [UpdateClub, { error, loading }] = useMutation(UPDATE_CLUB, {
-    variables: { updateClubInput: { ...form, clubId: id } },
-  });
+  // const [UpdateClub, { error, loading }] = useMutation(UPDATE_CLUB, {
+  //   variables: { updateClubInput: { ...form, clubId: id } },
+  // });
 
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (await isFormValid()) {
-      try {
-        console.log("before");
-        const { data } = await UpdateClub();
-        setStatus(data.message);
-        console.log("after");
-        console.log(data);
-      } catch (err: any) {
-        setStatus(err.response.data.message);
-      }
-    }
+    // if (await isFormValid()) {
+    //   try {
+    //     console.log("before");
+    //     const { data } = await UpdateClub();
+    //     setStatus(data.message);
+    //     console.log("after");
+    //     console.log(data);
+    //   } catch (err: any) {
+    //     setStatus(err.response.data.message);
+    //   }
+    // }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>

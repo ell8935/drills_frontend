@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { Club } from "../../types/club.types";
-import { useMutation } from "@apollo/client";
-import { UPDATE_CLUB } from "../../queries/updateClub";
 
 const useStyles = makeStyles({
   clubCard: {
