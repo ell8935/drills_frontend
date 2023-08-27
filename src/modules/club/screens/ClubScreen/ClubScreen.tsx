@@ -8,6 +8,11 @@ const ClubScreen = () => {
   const { id } = useParams();
   // const { loading, error, data } = useUserRolesInClub({ clubId: id, userId: "8556ed80-5091-48e6-bb23-215da7a9078d" });
   const navigate = useNavigate();
+  // const { associateUserWithClubAndRole, loading: mutationLoading } = useAssignUserToClub({
+  //   userId: "8556ed80-5091-48e6-bb23-215da7a9078d", // The user's ID
+  //   clubId: id ? id : "", // Club ID from useParams
+  //   roleName: "1", // Role ID you want to assign
+  // });
 
   const handleNavigate = () => {
     navigate(`/updateClub/${id}`);
@@ -39,6 +44,9 @@ const ClubScreen = () => {
     <div>
       <ClubCard onClick={handleNavigate} club={data.userClubRoles} />
       <ClubTabs data={mockOrganizationalData} />
+      {/* <Button onClick={handleAssignUser} disabled={mutationLoading}>
+        assign user to club
+      </Button> */}
     </div>
   );
 };
