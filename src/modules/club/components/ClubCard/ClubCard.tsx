@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { Club } from "../../types/club.types";
-import { useMutation } from "@apollo/client";
-import { UPDATE_CLUB } from "../../queries/updateClub";
 
 const useStyles = makeStyles({
   clubCard: {
@@ -29,13 +27,18 @@ interface ClubCardProps {
   editable?: boolean;
 }
 
-const ClubCard: React.FC<ClubCardProps> = ({ club, onClick, editable = false }) => {
+const ClubCard = ({ club, onClick, editable = false }: ClubCardProps) => {
+  console.log(club);
+
   const classes = useStyles();
   const [hovered, setHovered] = useState(false);
 
   const handleHover = () => {
     setHovered(!hovered);
   };
+
+  //return skeleton
+  if (!club) return <div>No club found</div>;
 
   return (
     <Card

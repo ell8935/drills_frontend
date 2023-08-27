@@ -34,11 +34,8 @@ const ClubUpdateScreen = () => {
 
     if (await isFormValid()) {
       try {
-        console.log("before");
         const { data } = await UpdateClub();
         setStatus(data.message);
-        console.log("after");
-        console.log(data);
       } catch (err: any) {
         setStatus(err.response.data.message);
       }

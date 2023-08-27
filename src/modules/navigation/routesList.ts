@@ -1,6 +1,5 @@
 import LoginScreen from "../auth/screens/LoginScreen";
 import HomeScreen from "../home/screens/HomeScreen";
-import HomeIcon from "@mui/icons-material/Home";
 import TeamsScreen from "../teams/screens/TeamsScreen";
 import ForgotPasswordScreen from "../auth/screens/ForgotPasswordScreen";
 import RegisterScreen from "../auth/screens/RegisterScreen";
@@ -26,45 +25,38 @@ export type RoutesListType = {
 
 const routesList = {
   home: {
-    Icon: HomeIcon,
     path: "/",
     Component: HomeScreen,
   },
   club: {
-    Icon: HomeIcon,
     path: "/club/:id",
     drawerName: "Club",
     title: "Club",
     Component: ClubScreen,
   },
   clubs: {
-    Icon: HomeIcon,
     path: "/clubs",
     drawerName: "Clubs",
     title: "Clubs",
     Component: ClubsScreen,
   },
   createClub: {
-    Icon: HomeIcon,
     path: "/createClub",
     drawerName: "Club",
     Component: ClubCreationScreen,
   },
   updateClub: {
-    Icon: HomeIcon,
     path: "/updateClub/:id",
     drawerName: "Club",
     Component: ClubUpdateScreen,
   },
   drills: {
-    Icon: HomeIcon,
     path: "/drills",
     drawerName: "Drills",
     title: "Drills",
     Component: HomeScreen,
   },
   trainers: {
-    Icon: HomeIcon,
     path: "/trainers",
     drawerName: "Trainers",
     title: "Trainers",
