@@ -28,8 +28,6 @@ interface ClubCardProps {
 }
 
 const ClubCard = ({ club, onClick, editable = false }: ClubCardProps) => {
-  console.log(club);
-
   const classes = useStyles();
   const [hovered, setHovered] = useState(false);
 

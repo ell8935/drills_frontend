@@ -6,7 +6,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
 import TabData from "./TabData";
 
-const ClubTabs = ({ data }: any) => {
+const ClubTabs = () => {
   const [tab, setTab] = React.useState("1");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -20,8 +20,7 @@ const ClubTabs = ({ data }: any) => {
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="Managers" value="1" />
             <Tab label="Trainers" value="2" />
-            <Tab label="Teams" value="3" />
-            <Tab label="Players" value="4" />
+            <Tab label="Players" value="3" />
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -31,9 +30,6 @@ const ClubTabs = ({ data }: any) => {
           <TabData entity="trainer" />
         </TabPanel>
         <TabPanel value="3">
-          <TabData entity="team" />
-        </TabPanel>
-        <TabPanel value="4">
           <TabData entity="player" />
         </TabPanel>
       </TabContext>

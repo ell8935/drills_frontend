@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Role, TabsDataProps } from "../../types/club.types";
+import { RolesNames } from "../../../users/types/userTypes";
 
-const TabData = ({ entity }: { entity: Role }) => {
+const TabData = ({ entity }: { entity: RolesNames }) => {
   //fetch data base on entity as well from store
 
-  const club: TabsDataProps = { id: "asd", name: "asd" };
+  const club: any = { id: "asd", name: "asd" };
   const [expandedAccordion, setExpandedAccordion] = useState<string | false>(false);
 
   const handleAccordionChange = (panel: string) => (event: React.SyntheticEvent | MouseEvent, isExpanded: boolean) => {
@@ -20,8 +20,6 @@ const TabData = ({ entity }: { entity: Role }) => {
     itemsToMap = club.managers;
   } else if (entity === "trainer" && club.trainers) {
     itemsToMap = club.trainers;
-  } else if (entity === "team" && club.teams) {
-    itemsToMap = club.teams;
   } else if (entity === "player" && club.players) {
     itemsToMap = club.players;
   }

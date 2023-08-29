@@ -7,11 +7,12 @@ import { Alert, Button, Divider, Typography } from "@mui/material";
 import RegisterFormStyled from "../styles/RegisterFormStyled";
 import CustomTextField from "../../../shared/components/CustomTextField";
 import { register } from "../api/register";
+import { setUserId } from "../../../shared/utils/localStorageUtils";
 
 const RegisterForm = () => {
   const [status, setStatus] = useState("");
   const { errors, form, handleOnBlur, handleOnChange, isFormValid } = useForm({
-    initialState: { email: "", password: "" },
+    initialState: { email: "", password: "", fullName: "" },
     schema: emailValidation,
   });
 
@@ -20,7 +21,8 @@ const RegisterForm = () => {
 
     if (await isFormValid()) {
       try {
-        const { data } = await register({ email: form.email, password: form.password });
+        const { data } = await register({ email: form.email, password: form.password, fullName: form.fullName });
+        setUserId(data.user.userId);
         setStatus(data.message);
       } catch (err: any) {
         setStatus(err.response.data.message);
@@ -41,6 +43,16 @@ const RegisterForm = () => {
         <div>
           <Divider>OR</Divider>
         </div>
+        <CustomTextField
+          className="fullName"
+          name="fullName"
+          label="Full Name "
+          error={errors.fullName}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
+          helperText={errors.fullName}
+          fullWidth
+        />
         <CustomTextField
           className="email"
           name="email"

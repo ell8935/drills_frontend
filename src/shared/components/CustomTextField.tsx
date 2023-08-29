@@ -7,10 +7,9 @@ interface CustomTextFieldProps extends Omit<OutlinedTextFieldProps, "variant" | 
   name: string;
   error?: string;
   isPassword?: boolean;
-  type?: string;
 }
 
-const CustomTextField = ({ value, name, error, isPassword, type, ...rest }: CustomTextFieldProps) => {
+const CustomTextField = ({ value, name, error, isPassword, ...rest }: CustomTextFieldProps) => {
   const [showPassword, setShowPassword] = useState(isPassword);
 
   const inputProps: InputProps = {};
@@ -35,7 +34,7 @@ const CustomTextField = ({ value, name, error, isPassword, type, ...rest }: Cust
       helperText={error}
       variant="outlined"
       InputProps={inputProps}
-      type={showPassword ? "password" : type}
+      type={showPassword ? "password" : rest.type}
     />
   );
 };

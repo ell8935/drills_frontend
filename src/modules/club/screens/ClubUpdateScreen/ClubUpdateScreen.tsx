@@ -3,6 +3,7 @@ import CustomTextField from "../../../../shared/components/CustomTextField";
 import { Alert, Button } from "@mui/material";
 import useForm from "../../../../shared/hooks/useForm";
 import { useParams } from "react-router-dom";
+import { updateClub } from "../../api/updateClub";
 
 const ClubUpdateScreen = () => {
   const { id } = useParams();
@@ -11,40 +12,30 @@ const ClubUpdateScreen = () => {
     initialState: {
       clubName: "asd",
       sport: "asd",
-      clubManager: "asd",
-      clubAdmin: "asd",
-      teamsCount: 2,
-      playersCount: 3,
       league: "asd",
       city: "asd",
       country: "asd",
       logo: "asd",
       description: "asd",
-      contactInformation: "asd",
+      foundedAt: "1992",
+      website: "asd",
+      email: "ssad",
+      phoneNumber: "asd",
     },
   });
-  // const [UpdateClub, { error, loading }] = useMutation(UPDATE_CLUB, {
-  //   variables: { updateClubInput: { ...form, clubId: id } },
-  // });
 
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // if (await isFormValid()) {
-    //   try {
-    //     console.log("before");
-    //     const { data } = await UpdateClub();
-    //     setStatus(data.message);
-    //     console.log("after");
-    //     console.log(data);
-    //   } catch (err: any) {
-    //     setStatus(err.response.data.message);
-    //   }
-    // }
+    if (await isFormValid()) {
+      try {
+        const { data } = await updateClub({ ...form, clubId: id! });
+        setStatus(data.message);
+      } catch (err: any) {
+        setStatus(err.response.data.message);
+      }
+    }
   };
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>
@@ -69,48 +60,7 @@ const ClubUpdateScreen = () => {
           helperText={errors.sport}
           fullWidth
         />
-        <CustomTextField
-          className="clubManager"
-          name="clubManager"
-          label="Club Manager"
-          error={errors.clubManager}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          helperText={errors.clubManager}
-          fullWidth
-        />
-        <CustomTextField
-          className="clubAdmin"
-          name="clubAdmin"
-          label="Club Admin"
-          error={errors.clubAdmin}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          helperText={errors.clubAdmin}
-          fullWidth
-        />
-        <CustomTextField
-          className="teamsCount"
-          name="teamsCount"
-          label="Teams Count"
-          type="number"
-          error={errors.teamsCount}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          helperText={errors.teamsCount}
-          fullWidth
-        />
-        <CustomTextField
-          className="playersCount"
-          name="playersCount"
-          label="PlayersCount"
-          type="number"
-          error={errors.playersCount}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          helperText={errors.playersCount}
-          fullWidth
-        />
+
         <CustomTextField
           className="league"
           name="league"
@@ -162,13 +112,43 @@ const ClubUpdateScreen = () => {
           fullWidth
         />
         <CustomTextField
-          className="contactInformation"
-          name="contactInformation"
-          label="contactInformation"
-          error={errors.contactInformation}
+          className="foundedAt"
+          name="foundedAt"
+          label="Founded at"
+          error={errors.foundedAt}
           onBlur={handleOnBlur}
           onChange={handleOnChange}
-          helperText={errors.contactInformation}
+          helperText={errors.foundedAt}
+          fullWidth
+        />
+        <CustomTextField
+          className="website"
+          name="website"
+          label="Website"
+          error={errors.website}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
+          helperText={errors.website}
+          fullWidth
+        />
+        <CustomTextField
+          className="email"
+          name="email"
+          label="Email"
+          error={errors.email}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
+          helperText={errors.email}
+          fullWidth
+        />
+        <CustomTextField
+          className="phoneNumber"
+          name="phoneNumber"
+          label="Phone Number"
+          error={errors.phoneNumber}
+          onBlur={handleOnBlur}
+          onChange={handleOnChange}
+          helperText={errors.phoneNumber}
           fullWidth
         />
 
