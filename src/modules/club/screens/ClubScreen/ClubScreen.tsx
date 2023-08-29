@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ClubTabs from "../../components/ClubTabs/ClubTabs";
 import ClubCard from "../../components/ClubCard/ClubCard";
 import { getClub } from "../../api/getClub";
@@ -7,22 +7,32 @@ import { Button } from "@mui/material";
 import { assignEntity } from "../../api/assignEntity";
 import { getUserClubRole } from "../../api/getUserClubRole";
 import { getUserId } from "../../../../shared/utils/localStorageUtils";
-import { AssignUserProps } from "../../../users/types/userTypes";
+import { AssignUserProps, UserClubRole } from "../../../users/types/userTypes";
+import { useEffect, useState } from "react";
 
 const ClubScreen = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useQuery("getClub", () => getClub(id!));
+  const { data: dataUserClubRole } = useQuery("getUserClubRole", () => getUserClubRole());
 
-  const navigate = useNavigate();
+  const [managers, setManagers] = useState<UserClubRole[]>([]);
+  const [trainers, setTrainers] = useState<UserClubRole[]>([]);
+  const [players, setPlayers] = useState<UserClubRole[]>([]);
 
-  const handleNavigate = () => {
-    navigate(`/updateClub/${id}`);
-  };
+  useEffect(() => {
+    if (dataUserClubRole) {
+      const managersData = dataUserClubRole.filter((item) => item.roleId === 11);
+      const trainersData = dataUserClubRole.filter((item) => item.roleId === 22);
+      const playersData = dataUserClubRole.filter((item) => item.roleId === 33);
+
+      setManagers(managersData);
+      setTrainers(trainersData);
+      setPlayers(playersData);
+    }
+  }, [dataUserClubRole]);
 
   const handleAssignUser = async () => {
     const userId = getUserId();
-    console.log(userId);
-
     const userClubRoleData: AssignUserProps = {
       userId: userId || "", // The user's ID
       clubId: id || "", // Club ID from useParams
@@ -32,20 +42,13 @@ const ClubScreen = () => {
     console.log("User Assigned");
   };
 
-  const handleGetUserClubRole = async () => {
-    const data = await getUserClubRole();
-    console.log(data);
-  };
-
   if (isError) return "Error";
 
   return (
     <div>
-      {isLoading ? "Loading" : <ClubCard onClick={handleNavigate} club={data!} />}
-
-      <ClubTabs />
+      {isLoading ? "Loading" : <ClubCard club={data!} />}
+      <ClubTabs managers={managers} trainers={trainers} players={players} />
       <Button onClick={handleAssignUser}>assign user to club</Button>
-      <Button onClick={handleGetUserClubRole}>handleGetUserClubRole</Button>
     </div>
   );
 };

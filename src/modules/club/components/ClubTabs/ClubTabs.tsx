@@ -5,8 +5,14 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
 import TabData from "./TabData";
+import { UserClubRole } from "../../../users/types/userTypes";
+interface ClubTabsProps {
+  managers: UserClubRole[];
+  trainers: UserClubRole[];
+  players: UserClubRole[];
+}
 
-const ClubTabs = () => {
+const ClubTabs = ({ managers, trainers, players }: ClubTabsProps) => {
   const [tab, setTab] = React.useState("1");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -24,13 +30,13 @@ const ClubTabs = () => {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <TabData entity="manager" />
+          <TabData data={managers} />
         </TabPanel>
         <TabPanel value="2">
-          <TabData entity="trainer" />
+          <TabData data={trainers} />
         </TabPanel>
         <TabPanel value="3">
-          <TabData entity="player" />
+          <TabData data={players} />
         </TabPanel>
       </TabContext>
     </div>
