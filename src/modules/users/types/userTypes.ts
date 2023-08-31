@@ -24,16 +24,19 @@ export interface User {
 export type RolesNames = "manager" | "trainer" | "player";
 export type RolesIds = 11 | 22 | 33;
 
-export interface AssignUserProps {
+export interface AssignUserInput {
   userId: string;
   clubId: string;
-  roleId: RolesIds;
+  roleName: RolesNames;
+}
+export interface AssignPlaceholderProps extends AssignUserInput {
+  fullName: string;
 }
 
 export interface UserClubRole {
   id: string;
   user: User;
   club: Club;
-  roleId: RolesIds;
+  roleName: RolesNames;
   description: string;
 }

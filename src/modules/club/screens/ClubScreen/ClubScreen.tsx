@@ -3,11 +3,8 @@ import ClubTabs from "../../components/ClubTabs/ClubTabs";
 import ClubCard from "../../components/ClubCard/ClubCard";
 import { getClub } from "../../api/getClub";
 import { useQuery } from "react-query";
-import { Button } from "@mui/material";
-import { assignEntity } from "../../api/assignEntity";
 import { getUserClubRole } from "../../api/getUserClubRole";
-import { getUserId } from "../../../../shared/utils/localStorageUtils";
-import { AssignUserProps, UserClubRole } from "../../../users/types/userTypes";
+import { UserClubRole } from "../../../users/types/userTypes";
 import { useEffect, useState } from "react";
 
 const ClubScreen = () => {
@@ -21,9 +18,9 @@ const ClubScreen = () => {
 
   useEffect(() => {
     if (dataUserClubRole) {
-      const managersData = dataUserClubRole.filter((item) => item.roleId === 11);
-      const trainersData = dataUserClubRole.filter((item) => item.roleId === 22);
-      const playersData = dataUserClubRole.filter((item) => item.roleId === 33);
+      const managersData = dataUserClubRole.filter((item) => item.roleName === "manager");
+      const trainersData = dataUserClubRole.filter((item) => item.roleName === "trainer");
+      const playersData = dataUserClubRole.filter((item) => item.roleName === "player");
 
       setManagers(managersData);
       setTrainers(trainersData);
@@ -31,24 +28,13 @@ const ClubScreen = () => {
     }
   }, [dataUserClubRole]);
 
-  const handleAssignUser = async () => {
-    const userId = getUserId();
-    const userClubRoleData: AssignUserProps = {
-      userId: userId || "", // The user's ID
-      clubId: id || "", // Club ID from useParams
-      roleId: 11, // Role ID you want to assign
-    };
-    await assignEntity(userClubRoleData);
-    console.log("User Assigned");
-  };
-
   if (isError) return "Error";
+  console.log(dataUserClubRole);
 
   return (
     <div>
       {isLoading ? "Loading" : <ClubCard club={data!} />}
-      <ClubTabs managers={managers} trainers={trainers} players={players} />
-      <Button onClick={handleAssignUser}>assign user to club</Button>
+      <ClubTabs managers={managers} trainers={trainers} players={players} clubId={id!} />
     </div>
   );
 };

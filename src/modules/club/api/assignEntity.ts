@@ -1,7 +1,7 @@
 import axios from "axios";
-import { AssignUserProps } from "../../users/types/userTypes";
+import { AssignUserInput } from "../../users/types/userTypes";
 
-export const assignEntity = async (form: AssignUserProps) =>
+export const assignEntity = async (form: AssignUserInput) =>
   axios({
     data: form,
     method: "POST",

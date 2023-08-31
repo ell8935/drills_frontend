@@ -1,21 +1,25 @@
 import React from "react";
-import { Tab } from "@mui/material";
+import { Button, Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
 import TabData from "./TabData";
-import { UserClubRole } from "../../../users/types/userTypes";
+import { RolesNames, UserClubRole } from "../../../users/types/userTypes";
+import { handleAssignUser } from "../../utils/assignUser";
 interface ClubTabsProps {
   managers: UserClubRole[];
   trainers: UserClubRole[];
   players: UserClubRole[];
+  clubId: string;
 }
 
-const ClubTabs = ({ managers, trainers, players }: ClubTabsProps) => {
-  const [tab, setTab] = React.useState("1");
+const ClubTabs = ({ managers, trainers, players, clubId }: ClubTabsProps) => {
+  console.log(managers);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const [tab, setTab] = React.useState<RolesNames>("manager");
+
+  const handleChange = (event: React.SyntheticEvent, newValue: RolesNames) => {
     setTab(newValue);
   };
 
@@ -23,19 +27,20 @@ const ClubTabs = ({ managers, trainers, players }: ClubTabsProps) => {
     <div>
       <TabContext value={tab}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="Managers" value="1" />
-            <Tab label="Trainers" value="2" />
-            <Tab label="Players" value="3" />
+          <TabList onChange={handleChange} aria-label="tabs">
+            <Tab label="Managers" value="manager" />
+            <Tab label="Trainers" value="trainer" />
+            <Tab label="Players" value="player" />
+            <Button onClick={() => handleAssignUser({ tab, clubId })}>+</Button>
           </TabList>
         </Box>
-        <TabPanel value="1">
+        <TabPanel value="manager">
           <TabData data={managers} />
         </TabPanel>
-        <TabPanel value="2">
+        <TabPanel value="trainer">
           <TabData data={trainers} />
         </TabPanel>
-        <TabPanel value="3">
+        <TabPanel value="player">
           <TabData data={players} />
         </TabPanel>
       </TabContext>
