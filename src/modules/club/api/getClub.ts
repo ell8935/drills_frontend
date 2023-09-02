@@ -7,5 +7,5 @@ export const getClub = async (clubId: string): Promise<Club> => {
     url: `club/${clubId}`,
   });
 
-  return response.data; // Return the raw response data
+  return response.data;
 };

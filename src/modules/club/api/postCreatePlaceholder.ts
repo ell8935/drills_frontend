@@ -1,9 +1,9 @@
 import axios from "axios";
-import { AssignUserInput } from "../../users/types/userTypes";
+import { CreatePlaceholderProps } from "../../users/types/userTypes";
 
-export const postCreatePlaceholder = async (form: AssignUserInput) =>
+export const postCreatePlaceholder = async (form: CreatePlaceholderProps) =>
   axios({
     data: form,
     method: "POST",
-    url: "users/createPlaceholder",
+    url: "club/createPlaceholder",
   });

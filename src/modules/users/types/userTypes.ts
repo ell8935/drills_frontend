@@ -30,7 +30,7 @@ export interface AssignUserInput {
   clubId: string;
   roleName: RolesNames;
 }
-export interface AssignPlaceholderProps extends AssignUserInput {
+export interface CreatePlaceholderProps extends AssignUserInput {
   fullName: string;
 }
 

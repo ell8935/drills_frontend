@@ -13,7 +13,7 @@ interface TabDataProps {
 
 export const ManagerTab = ({ isPlaceholder }: TabDataProps) => {
   const { form, handleOnBlur, handleOnChange, errors } = useForm({
-    initialState: { fullName: "", age: "" },
+    initialState: { fullName: "" },
     schema: assignManagerValidation,
   });
   const [clubId, setClubId] = useState<string | null>();
@@ -41,13 +41,6 @@ export const ManagerTab = ({ isPlaceholder }: TabDataProps) => {
             onChange={handleOnChange}
             fullWidth
             error={errors.fullName}
-          />
-          <CustomTextField
-            name={"age"}
-            label={"Age"}
-            onBlur={handleOnBlur}
-            onChange={handleOnChange}
-            error={errors.age}
           />
         </div>
       )}
