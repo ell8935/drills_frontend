@@ -3,7 +3,7 @@ import CustomTextField from "../../../../shared/components/CustomTextField";
 import { Alert, Button } from "@mui/material";
 import useForm from "../../../../shared/hooks/useForm";
 import { useParams } from "react-router-dom";
-import { updateClub } from "../../api/updateClub";
+import { postUpdateClub } from "../../api/postUpdateClub";
 
 const ClubUpdateScreen = () => {
   const { id } = useParams();
@@ -29,7 +29,7 @@ const ClubUpdateScreen = () => {
 
     if (await isFormValid()) {
       try {
-        const { data } = await updateClub({ ...form, clubId: id! });
+        const { data } = await postUpdateClub({ ...form, clubId: id! });
         setStatus(data.message);
       } catch (err: any) {
         setStatus(err.response.data.message);

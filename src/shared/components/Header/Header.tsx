@@ -7,19 +7,21 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeaderDrawer from "../HeaderDrawer/HeaderDrawer";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "../../utils/localStorageUtils";
 
 export default function Header() {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState<string | null>();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [toggle, setToggle] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
+  useEffect(() => {
+    const isAuth = getToken();
+    setAuth(isAuth);
+  }, []);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     navigate("/login");

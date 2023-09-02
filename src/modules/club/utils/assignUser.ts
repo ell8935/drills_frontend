@@ -1,18 +1,20 @@
 import { getUserId } from "../../../shared/utils/localStorageUtils";
 import { AssignUserInput, RolesNames } from "../../users/types/userTypes";
-import { assignEntity } from "../api/assignEntity";
+import { postAssignEntity } from "../api/postAssignEntity";
+
 interface AssignUserProps {
   clubId: string;
-  tab: RolesNames;
+  roleName: RolesNames;
 }
-export const handleAssignUser = async ({ clubId, tab }: AssignUserProps) => {
+
+export const handleAssignUser = async ({ clubId, roleName }: AssignUserProps) => {
   const userId = getUserId();
   const userClubRoleData: AssignUserInput = {
     userId: userId || "",
-    clubId: clubId || "",
-    roleName: tab, // Role ID you want to assign
+    clubId: clubId,
+    roleName: roleName, // Role name you want to assign
   };
-  const data = await assignEntity(userClubRoleData);
+  const data = await postAssignEntity(userClubRoleData);
   console.log("User Assigned");
-  console.log(data);
+  return data;
 };

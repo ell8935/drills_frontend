@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, IconButton, Typography } from "@material-ui/core";
-import { Club } from "../../types/club.types";
+import { Club, RequestToJoinInput } from "../../types/club.types";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+import { postRequestToJoinClub } from "../../api/postRequestToJoinClub";
+import { getUserId } from "../../../../shared/utils/localStorageUtils";
+import { Button } from "@mui/material";
 
 const useStyles = makeStyles({
   clubCard: {
@@ -42,6 +45,14 @@ const ClubCard = ({ club, onClick, editable = false }: ClubCardProps) => {
     navigate(`/updateClub/${club.clubId}`);
   };
 
+  const handleRequestToJoinClub = () => {
+    const data: RequestToJoinInput = {
+      userId: getUserId(),
+      clubId: club.clubId,
+    };
+    postRequestToJoinClub(data);
+  };
+
   //return skeleton
   if (!club) return <div>No club found</div>;
 
@@ -65,6 +76,7 @@ const ClubCard = ({ club, onClick, editable = false }: ClubCardProps) => {
           <Typography variant="body1">Description: {club.description}</Typography>
         </div>
       </CardContent>
+      <Button onClick={handleRequestToJoinClub}>Request to join</Button>
     </Card>
   );
 };

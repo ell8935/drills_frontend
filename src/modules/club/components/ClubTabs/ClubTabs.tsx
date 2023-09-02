@@ -1,25 +1,21 @@
 import React from "react";
-import { Button, Tab } from "@mui/material";
+import { Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
 import TabData from "./TabData";
-import { RolesNames, UserClubRole } from "../../../users/types/userTypes";
-import { handleAssignUser } from "../../utils/assignUser";
+import { RolesNames } from "../../../users/types/userTypes";
+import { UserClubRoleRowsData } from "../../types/club.types";
+
 interface ClubTabsProps {
-  managers: UserClubRole[];
-  trainers: UserClubRole[];
-  players: UserClubRole[];
-  clubId: string;
+  userClubRoleRows: UserClubRoleRowsData;
 }
 
-const ClubTabs = ({ managers, trainers, players, clubId }: ClubTabsProps) => {
-  console.log(managers);
-
+const ClubTabs = ({ userClubRoleRows }: ClubTabsProps) => {
   const [tab, setTab] = React.useState<RolesNames>("manager");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: RolesNames) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: RolesNames) => {
     setTab(newValue);
   };
 
@@ -31,17 +27,16 @@ const ClubTabs = ({ managers, trainers, players, clubId }: ClubTabsProps) => {
             <Tab label="Managers" value="manager" />
             <Tab label="Trainers" value="trainer" />
             <Tab label="Players" value="player" />
-            <Button onClick={() => handleAssignUser({ tab, clubId })}>+</Button>
           </TabList>
         </Box>
         <TabPanel value="manager">
-          <TabData data={managers} />
+          <TabData data={userClubRoleRows.managers} />
         </TabPanel>
         <TabPanel value="trainer">
-          <TabData data={trainers} />
+          <TabData data={userClubRoleRows.trainers} />
         </TabPanel>
         <TabPanel value="player">
-          <TabData data={players} />
+          <TabData data={userClubRoleRows.players} />
         </TabPanel>
       </TabContext>
     </div>

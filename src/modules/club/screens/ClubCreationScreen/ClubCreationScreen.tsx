@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Alert, Button } from "@mui/material";
 import CustomTextField from "../../../../shared/components/CustomTextField";
 import useForm from "../../../../shared/hooks/useForm";
-import { createClub } from "../../api/createClub";
+import { postCreateClub } from "../../api/postCreateClub";
 
 const ClubCreationScreen = () => {
   const [status, setStatus] = useState("");
@@ -27,7 +27,7 @@ const ClubCreationScreen = () => {
 
     if (await isFormValid()) {
       try {
-        const { data } = await createClub(form);
+        const { data } = await postCreateClub(form);
         setStatus(data.message);
       } catch (err: any) {
         setStatus(err.response.data.message);

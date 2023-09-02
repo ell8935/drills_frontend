@@ -1,3 +1,5 @@
+import { UserClubRole } from "../../users/types/userTypes";
+
 export interface Club {
   clubId: string;
   clubName: string;
@@ -13,4 +15,15 @@ export interface Club {
   phoneNumber: string;
 }
 
+export interface UserClubRoleRowsData {
+  managers: UserClubRole[];
+  trainers: UserClubRole[];
+  players: UserClubRole[];
+}
+
 export type CreateClubProps = Omit<Club, "clubId">;
+
+export interface RequestToJoinInput {
+  userId: string;
+  clubId: string;
+}
