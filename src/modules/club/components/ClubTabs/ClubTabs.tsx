@@ -10,9 +10,10 @@ import { UserClubRoleRowsData } from "../../types/club.types";
 
 interface ClubTabsProps {
   userClubRoleRows: UserClubRoleRowsData;
+  onChange: () => void;
 }
 
-const ClubTabs = ({ userClubRoleRows }: ClubTabsProps) => {
+const ClubTabs = ({ userClubRoleRows, onChange }: ClubTabsProps) => {
   const [tab, setTab] = React.useState<RolesNames>("manager");
 
   const handleChange = (_event: React.SyntheticEvent, newValue: RolesNames) => {
@@ -30,13 +31,13 @@ const ClubTabs = ({ userClubRoleRows }: ClubTabsProps) => {
           </TabList>
         </Box>
         <TabPanel value="manager">
-          <TabData data={userClubRoleRows.managers} />
+          <TabData data={userClubRoleRows.managers} onChange={onChange} />
         </TabPanel>
         <TabPanel value="trainer">
-          <TabData data={userClubRoleRows.trainers} />
+          <TabData data={userClubRoleRows.trainers} onChange={onChange} />
         </TabPanel>
         <TabPanel value="player">
-          <TabData data={userClubRoleRows.players} />
+          <TabData data={userClubRoleRows.players} onChange={onChange} />
         </TabPanel>
       </TabContext>
     </div>

@@ -1,32 +1,50 @@
 import React, { useState } from "react";
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, Typography, IconButton } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { UserClubRole } from "../../../users/types/userTypes";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { postRemoveEntity } from "../../api/postRemoveEntity";
+
 interface TabDataProps {
   data: UserClubRole[];
+  onChange: () => void;
 }
 
-const TabData = ({ data }: TabDataProps) => {
-  //fetch data base on entity as well from store
-
+const TabData = ({ data, onChange }: TabDataProps) => {
   const [expandedAccordion, setExpandedAccordion] = useState<string | false>(false);
+  console.log(data);
 
-  const handleAccordionChange = (panel: string) => (event: React.SyntheticEvent | MouseEvent, isExpanded: boolean) => {
+  const handleAccordionChange = (panel: string) => (_event: React.SyntheticEvent | MouseEvent, isExpanded: boolean) => {
     setExpandedAccordion(isExpanded ? panel : false);
+  };
+
+  const handleDeleteEntity = async ({ entityId }: { entityId: string }) => {
+    await postRemoveEntity({ id: entityId });
+    onChange();
   };
 
   return (
     <div>
-      {data.map((item) => (
-        <Accordion key={item.id} expanded={expandedAccordion === item.id} onChange={handleAccordionChange(item.id)}>
+      {data.map((entity) => (
+        <Accordion
+          key={entity.id}
+          expanded={expandedAccordion === entity.id}
+          onChange={handleAccordionChange(entity.id)}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls={`${item.id}-content`}
-            id={`${item.id}-header`}
+            aria-controls={`${entity.id}-content`}
+            id={`${entity.id}-header`}
           >
-            <Typography>{item.user?.fullName}</Typography>
+            <Typography>{entity.user?.fullName}</Typography>
           </AccordionSummary>
-          <AccordionDetails>{/* Render specific details here */}</AccordionDetails>
+          <AccordionDetails>
+            <div>
+              <IconButton onClick={() => handleDeleteEntity({ entityId: entity.id })}>
+                <DeleteForeverIcon />
+              </IconButton>
+            </div>
+          </AccordionDetails>
         </Accordion>
       ))}
     </div>

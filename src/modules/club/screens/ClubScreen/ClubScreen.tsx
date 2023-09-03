@@ -37,7 +37,7 @@ const ClubScreen = () => {
     setIsAssignUserModalOpen(!isAssignUserModalOpen);
   };
 
-  const handleUserAssigned = async () => {
+  const handleRerender = async () => {
     await refetchUserClubRole();
   };
 
@@ -49,10 +49,10 @@ const ClubScreen = () => {
       <AssignUserModal
         isOpen={isAssignUserModalOpen}
         closeModal={handleToggleAssignUserModal}
-        onAssignUser={handleUserAssigned}
+        onAssignUser={handleRerender}
       ></AssignUserModal>
       {isLoading ? "Loading" : <ClubCard club={data!} editable isInside />}
-      <ClubTabs userClubRoleRows={userClubRoleRows} />
+      <ClubTabs userClubRoleRows={userClubRoleRows} onChange={handleRerender} />
     </div>
   );
 };
