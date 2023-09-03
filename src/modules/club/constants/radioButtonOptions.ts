@@ -3,7 +3,7 @@ export interface RadioOption {
   label: string;
 }
 
-export const radioButtonOptions: RadioOption[] = [
+export const placeholderRadioOptions: RadioOption[] = [
   { value: "placeholder", label: "Placeholder" },
   { value: "assign", label: "Assign" },
 ];

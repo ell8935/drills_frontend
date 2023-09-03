@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, IconButton, Typography } from "@material-ui/core";
+import { Card, CardContent, Divider, IconButton, Typography } from "@material-ui/core";
 import { Club, RequestToJoinInput } from "../../types/club.types";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
@@ -30,9 +30,10 @@ interface ClubCardProps {
   club: Club;
   onClick?: any;
   editable?: boolean;
+  isInside?: boolean;
 }
 
-const ClubCard = ({ club, onClick, editable = false }: ClubCardProps) => {
+const ClubCard = ({ club, onClick, editable = false, isInside = false }: ClubCardProps) => {
   const classes = useStyles();
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
@@ -53,6 +54,10 @@ const ClubCard = ({ club, onClick, editable = false }: ClubCardProps) => {
     postRequestToJoinClub(data);
   };
 
+  const handleNavigateToClub = async () => {
+    navigate(`/club/${club.clubId}`);
+  };
+
   //return skeleton
   if (!club) return <div>No club found</div>;
 
@@ -63,9 +68,11 @@ const ClubCard = ({ club, onClick, editable = false }: ClubCardProps) => {
       onMouseLeave={handleHover}
       onClick={onClick}
     >
-      <IconButton onClick={handleNavigate}>
-        <EditIcon />
-      </IconButton>
+      {editable && (
+        <IconButton onClick={handleNavigate}>
+          <EditIcon />
+        </IconButton>
+      )}
       <CardContent>
         <div className={classes.clubDetails}>
           <Typography variant="h5">{club.clubName}</Typography>
@@ -76,6 +83,13 @@ const ClubCard = ({ club, onClick, editable = false }: ClubCardProps) => {
           <Typography variant="body1">Description: {club.description}</Typography>
         </div>
       </CardContent>
+
+      {!isInside && (
+        <div>
+          <Button onClick={handleNavigateToClub}>Enter Club</Button>
+          <Divider />
+        </div>
+      )}
       <Button onClick={handleRequestToJoinClub}>Request to join</Button>
     </Card>
   );

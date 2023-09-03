@@ -1,17 +1,17 @@
 import { Button } from "@mui/material";
 import CustomTextField from "../../../../shared/components/CustomTextField";
 import useForm from "../../../../shared/hooks/useForm";
-import { assignManagerValidation } from "../../../auth/validation/assignManagerValidation";
 import { PlaceholderProps } from "../../types/club.types";
+import { assignPlayerValidation } from "../../../auth/validation/assignPlayerValidation";
 
-export const ManagerTab = ({ onSubmit }: PlaceholderProps) => {
+export const PlayerTab = ({ onSubmit }: PlaceholderProps) => {
   const { form, handleOnBlur, handleOnChange, errors } = useForm({
     initialState: { fullName: "" },
-    schema: assignManagerValidation,
+    schema: assignPlayerValidation,
   });
 
   const handleSubmit = () => {
-    onSubmit?.({ fullName: form.fullName, roleName: "manager" });
+    onSubmit?.({ fullName: form.fullName, roleName: "player" });
   };
 
   return (
@@ -26,7 +26,7 @@ export const ManagerTab = ({ onSubmit }: PlaceholderProps) => {
           error={errors.fullName}
         />
       </div>
-      <Button onClick={handleSubmit}>Create manager</Button>
+      <Button onClick={handleSubmit}>Create player</Button>
     </div>
   );
 };

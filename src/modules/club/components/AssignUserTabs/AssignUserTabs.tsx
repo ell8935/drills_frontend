@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
-import { TabData } from "./TabData";
 import { EntityNames, RolesNames } from "../../../users/types/userTypes";
 import { RadioButton } from "../../../../shared/components/RadioButton/RadioButton";
-import { radioButtonOptions } from "../../constants/radioButtonOptions";
+import { placeholderRadioOptions } from "../../constants/radioButtonOptions";
 import { ManagerTab } from "./ManagerTab";
-
-export const AssignUserTabs = () => {
+import { TrainerTab } from "./TrainerTab";
+import { PlayerTab } from "./PlayerTab";
+import { getClubId } from "../../../../shared/utils/localStorageUtils";
+import { handleCreatePlaceHolder } from "../../utils/assignPlaceholder";
+import { handleAssignUser } from "../../utils/assignUser";
+interface AssignUserTabsProps {
+  onAssignUser: () => void;
+}
+export const AssignUserTabs = ({ onAssignUser }: AssignUserTabsProps) => {
   const [tab, setTab] = React.useState<EntityNames>("manager");
-  const [isPlaceholder, setIsPlaceholder] = useState(radioButtonOptions[0].value);
+  const [isPlaceholder, setIsPlaceholder] = useState(placeholderRadioOptions[0].value);
+  const [clubId, setClubId] = useState<string | null>();
+
+  useEffect(() => {
+    setClubId(getClubId());
+  }, []);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: RolesNames) => {
     setTab(newValue);
@@ -21,6 +32,18 @@ export const AssignUserTabs = () => {
   const handleOptionChange = (value: any) => {
     setIsPlaceholder(value);
   };
+
+  const handleSubmit = async ({ roleName, fullName }: any) => {
+    if (isPlaceholder === "placeholder" && clubId) {
+      await handleCreatePlaceHolder({ clubId: clubId, fullName, roleName });
+      onAssignUser();
+    }
+    if (isPlaceholder === "assign" && clubId) {
+      await handleAssignUser({ clubId, roleName });
+      onAssignUser();
+    }
+  };
+
   return (
     <div>
       <TabContext value={tab}>
@@ -33,19 +56,23 @@ export const AssignUserTabs = () => {
           </TabList>
         </Box>
         {tab !== "team" && (
-          <RadioButton options={radioButtonOptions} handleOnChange={handleOptionChange} selectedValue={isPlaceholder} />
+          <RadioButton
+            options={placeholderRadioOptions}
+            handleOnChange={handleOptionChange}
+            selectedValue={isPlaceholder}
+          />
         )}
         <TabPanel value="manager">
-          <ManagerTab isPlaceholder={isPlaceholder} />
+          <ManagerTab onSubmit={handleSubmit} />
         </TabPanel>
         <TabPanel value="trainer">
-          <TabData isPlaceholder={isPlaceholder} tab={tab} />
+          <TrainerTab onSubmit={handleSubmit} />
         </TabPanel>
         <TabPanel value="team">
-          <TabData tab={tab} />
+          <ManagerTab />
         </TabPanel>
         <TabPanel value="player">
-          <TabData isPlaceholder={isPlaceholder} tab={tab} />
+          <PlayerTab onSubmit={handleSubmit} />
         </TabPanel>
       </TabContext>
     </div>

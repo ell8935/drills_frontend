@@ -1,6 +1,5 @@
 import { getUserId } from "../../../shared/utils/localStorageUtils";
 import { CreatePlaceholderProps, RolesNames } from "../../users/types/userTypes";
-import { postAssignEntity } from "../api/postAssignEntity";
 import { postCreatePlaceholder } from "../api/postCreatePlaceholder";
 
 interface handleCreatePlaceHolderProps {
@@ -17,6 +16,5 @@ export const handleCreatePlaceHolder = async ({ clubId, fullName, roleName }: ha
     clubId: clubId,
     roleName: roleName, // Role name you want to assign
   };
-  const placeholder = await postCreatePlaceholder(userClubRoleData);
-  console.log(placeholder);
+  return await postCreatePlaceholder(userClubRoleData);
 };

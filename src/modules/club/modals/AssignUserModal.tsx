@@ -5,15 +5,16 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 interface Props {
   isOpen: boolean;
   closeModal: () => void;
+  onAssignUser: () => void;
 }
 
-export const AssignUserModal = ({ isOpen, closeModal }: Props) => {
+export const AssignUserModal = ({ isOpen, closeModal, onAssignUser }: Props) => {
   return (
     <BasicModal isOpen={isOpen}>
       <IconButton onClick={closeModal}>
         <CancelPresentationIcon />
       </IconButton>
-      <AssignUserTabs />
+      <AssignUserTabs onAssignUser={onAssignUser} />
     </BasicModal>
   );
 };

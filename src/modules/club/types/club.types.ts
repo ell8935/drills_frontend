@@ -1,4 +1,4 @@
-import { UserClubRole } from "../../users/types/userTypes";
+import { RolesNames, UserClubRole } from "../../users/types/userTypes";
 
 export interface Club {
   clubId: string;
@@ -26,4 +26,8 @@ export type CreateClubProps = Omit<Club, "clubId">;
 export interface RequestToJoinInput {
   userId: string;
   clubId: string;
+}
+
+export interface PlaceholderProps {
+  onSubmit?: ({ roleName, fullName }: { roleName: RolesNames; fullName: string }) => void;
 }

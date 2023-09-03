@@ -13,7 +13,7 @@ import { setClubId } from "../../../../shared/utils/localStorageUtils";
 const ClubScreen = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useQuery("getClub", () => getClub(id!));
-  const { data: dataUserClubRole } = useQuery("getUserClubRole", () => getUserClubRole());
+  const { data: dataUserClubRole, refetch: refetchUserClubRole } = useQuery("getUserClubRole", () => getUserClubRole());
   const [isAssignUserModalOpen, setIsAssignUserModalOpen] = useState<boolean>(false);
 
   const [userClubRoleRows, setUserClubRoleRows] = useState<UserClubRoleRowsData>({
@@ -37,14 +37,21 @@ const ClubScreen = () => {
     setIsAssignUserModalOpen(!isAssignUserModalOpen);
   };
 
+  const handleUserAssigned = async () => {
+    await refetchUserClubRole();
+  };
+
   if (isError) return "Error";
-  console.log(dataUserClubRole);
 
   return (
     <div>
       <Button onClick={handleToggleAssignUserModal}>+</Button>
-      <AssignUserModal isOpen={isAssignUserModalOpen} closeModal={handleToggleAssignUserModal}></AssignUserModal>
-      {isLoading ? "Loading" : <ClubCard club={data!} />}
+      <AssignUserModal
+        isOpen={isAssignUserModalOpen}
+        closeModal={handleToggleAssignUserModal}
+        onAssignUser={handleUserAssigned}
+      ></AssignUserModal>
+      {isLoading ? "Loading" : <ClubCard club={data!} editable isInside />}
       <ClubTabs userClubRoleRows={userClubRoleRows} />
     </div>
   );
