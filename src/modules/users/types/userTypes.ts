@@ -1,4 +1,5 @@
 import { Club } from "../../club/types/club.types";
+import { Team } from "../../teams/teamsTypes";
 
 export interface UserRoleClub {
   clubId: string;
@@ -38,6 +39,7 @@ export interface UserClubRole {
   id: string;
   user: User;
   club: Club;
+  team: Team;
   roleName: RolesNames;
   description: string;
 }

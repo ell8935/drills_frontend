@@ -36,6 +36,9 @@ const ClubTabs = ({ userClubRoleRows, onChange }: ClubTabsProps) => {
         <TabPanel value="trainer">
           <TabData data={userClubRoleRows.trainers} onChange={onChange} />
         </TabPanel>
+        <TabPanel value="team">
+          <TabData data={userClubRoleRows.trainers} onChange={onChange} />
+        </TabPanel>
         <TabPanel value="player">
           <TabData data={userClubRoleRows.players} onChange={onChange} />
         </TabPanel>

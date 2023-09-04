@@ -45,13 +45,13 @@ const ClubScreen = () => {
 
   return (
     <div>
-      <Button onClick={handleToggleAssignUserModal}>+</Button>
       <AssignUserModal
         isOpen={isAssignUserModalOpen}
         closeModal={handleToggleAssignUserModal}
         onAssignUser={handleRerender}
       ></AssignUserModal>
       {isLoading ? "Loading" : <ClubCard club={data!} editable isInside />}
+      <Button onClick={handleToggleAssignUserModal}>Add Entity</Button>
       <ClubTabs userClubRoleRows={userClubRoleRows} onChange={handleRerender} />
     </div>
   );

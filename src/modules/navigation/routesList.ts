@@ -1,6 +1,5 @@
 import LoginScreen from "../auth/screens/LoginScreen";
 import HomeScreen from "../home/screens/HomeScreen";
-import TeamsScreen from "../teams/screens/TeamsScreen";
 import ForgotPasswordScreen from "../auth/screens/ForgotPasswordScreen";
 import RegisterScreen from "../auth/screens/RegisterScreen";
 import ClubCreationScreen from "../club/screens/ClubCreationScreen/ClubCreationScreen";
@@ -74,11 +73,6 @@ const routesList = {
   users: {
     path: "/users",
     Component: UsersScreen,
-  },
-  teams: {
-    noHeader: true,
-    path: "/teams",
-    Component: TeamsScreen,
   },
   forgotPassword: {
     path: "/forgotPassword",
