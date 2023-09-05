@@ -9,17 +9,21 @@ import { AssignUserModal } from "../../modals/AssignUserModal";
 import { Button } from "@material-ui/core";
 import { UserClubRoleRowsData } from "../../types/club.types";
 import { setClubId } from "../../../../shared/utils/localStorageUtils";
+import { getAllTeamsByClubId } from "../../../teams/api/getAllTeamsByClubId";
 
 const ClubScreen = () => {
   const { id } = useParams();
-  const { data, isLoading, isError } = useQuery("getClub", () => getClub(id!));
+  const { data: dataClub, isLoading, isError } = useQuery("getClub", () => getClub(id!));
+  const { data: dataTeams } = useQuery("getAllTeamsByClubId", () => getAllTeamsByClubId(id!));
   const { data: dataUserClubRole, refetch: refetchUserClubRole } = useQuery("getUserClubRole", () => getUserClubRole());
   const [isAssignUserModalOpen, setIsAssignUserModalOpen] = useState<boolean>(false);
+  console.log(dataTeams);
 
-  const [userClubRoleRows, setUserClubRoleRows] = useState<UserClubRoleRowsData>({
+  const [entireData, setEntireData] = useState<UserClubRoleRowsData>({
     managers: [],
     trainers: [],
     players: [],
+    teams: [],
   });
 
   useEffect(() => {
@@ -28,10 +32,11 @@ const ClubScreen = () => {
       const managers = dataUserClubRole.filter((item) => item.roleName === "manager");
       const trainers = dataUserClubRole.filter((item) => item.roleName === "trainer");
       const players = dataUserClubRole.filter((item) => item.roleName === "player");
+      const teams = dataClub?.teams;
 
-      setUserClubRoleRows({ managers, players, trainers });
+      setEntireData({ managers, players, trainers, teams: teams || [] });
     }
-  }, [dataUserClubRole, id]);
+  }, [dataUserClubRole, id, dataClub]);
 
   const handleToggleAssignUserModal = () => {
     setIsAssignUserModalOpen(!isAssignUserModalOpen);
@@ -50,9 +55,9 @@ const ClubScreen = () => {
         closeModal={handleToggleAssignUserModal}
         onAssignUser={handleRerender}
       ></AssignUserModal>
-      {isLoading ? "Loading" : <ClubCard club={data!} editable isInside />}
+      {isLoading ? "Loading" : <ClubCard club={dataClub!} editable isInside />}
       <Button onClick={handleToggleAssignUserModal}>Add Entity</Button>
-      <ClubTabs userClubRoleRows={userClubRoleRows} onChange={handleRerender} />
+      <ClubTabs entireData={entireData} onChange={handleRerender} />
     </div>
   );
 };

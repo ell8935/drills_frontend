@@ -23,7 +23,7 @@ export interface User {
 }
 
 export type RolesNames = "manager" | "trainer" | "player";
-export type EntityNames = "manager" | "trainer" | "team" | "player";
+export type EntitysNames = "manager" | "trainer" | "team" | "player";
 export type RolesIds = 11 | 22 | 33;
 
 export interface AssignUserInput {

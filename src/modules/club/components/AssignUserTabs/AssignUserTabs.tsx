@@ -4,7 +4,6 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
-import { EntityNames, RolesNames } from "../../../users/types/userTypes";
 import { RadioButton } from "../../../../shared/components/RadioButton/RadioButton";
 import { placeholderRadioOptions } from "../../constants/radioButtonOptions";
 import { ManagerTab } from "./ManagerTab";
@@ -13,11 +12,13 @@ import { PlayerTab } from "./PlayerTab";
 import { getClubId } from "../../../../shared/utils/localStorageUtils";
 import { handleCreatePlaceHolder } from "../../utils/assignPlaceholder";
 import { handleAssignUser } from "../../utils/assignUser";
+import { TeamTab } from "./TeamTab";
+import { EntitysNames, RolesNames } from "../../../users/types/userTypes";
 interface AssignUserTabsProps {
   onAssignUser: () => void;
 }
 export const AssignUserTabs = ({ onAssignUser }: AssignUserTabsProps) => {
-  const [tab, setTab] = React.useState<EntityNames>("manager");
+  const [tab, setTab] = React.useState<EntitysNames>("manager");
   const [isPlaceholder, setIsPlaceholder] = useState(placeholderRadioOptions[0].value);
   const [clubId, setClubId] = useState<string | null>();
 
@@ -69,7 +70,7 @@ export const AssignUserTabs = ({ onAssignUser }: AssignUserTabsProps) => {
           <TrainerTab onSubmit={handleSubmit} />
         </TabPanel>
         <TabPanel value="team">
-          <ManagerTab />
+          <TeamTab clubId={clubId!} />
         </TabPanel>
         <TabPanel value="player">
           <PlayerTab onSubmit={handleSubmit} />

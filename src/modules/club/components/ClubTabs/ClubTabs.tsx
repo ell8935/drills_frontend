@@ -4,17 +4,18 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
-import TabData from "./TabData";
-import { RolesNames } from "../../../users/types/userTypes";
 import { UserClubRoleRowsData } from "../../types/club.types";
+import { EntitysNames, RolesNames } from "../../../users/types/userTypes";
+import { GeneralTabData } from "./GeneralTabData";
+import { TeamsTab } from "./TeamsTab";
 
 interface ClubTabsProps {
-  userClubRoleRows: UserClubRoleRowsData;
+  entireData: UserClubRoleRowsData;
   onChange: () => void;
 }
 
-const ClubTabs = ({ userClubRoleRows, onChange }: ClubTabsProps) => {
-  const [tab, setTab] = React.useState<RolesNames>("manager");
+const ClubTabs = ({ entireData, onChange }: ClubTabsProps) => {
+  const [tab, setTab] = React.useState<EntitysNames>("manager");
 
   const handleChange = (_event: React.SyntheticEvent, newValue: RolesNames) => {
     setTab(newValue);
@@ -27,20 +28,21 @@ const ClubTabs = ({ userClubRoleRows, onChange }: ClubTabsProps) => {
           <TabList onChange={handleChange} aria-label="tabs">
             <Tab label="Managers" value="manager" />
             <Tab label="Trainers" value="trainer" />
+            <Tab label="Teams" value="team" />
             <Tab label="Players" value="player" />
           </TabList>
         </Box>
         <TabPanel value="manager">
-          <TabData data={userClubRoleRows.managers} onChange={onChange} />
+          <GeneralTabData data={entireData.managers} onChange={onChange} />
         </TabPanel>
         <TabPanel value="trainer">
-          <TabData data={userClubRoleRows.trainers} onChange={onChange} />
+          <GeneralTabData data={entireData.trainers} onChange={onChange} />
         </TabPanel>
         <TabPanel value="team">
-          <TabData data={userClubRoleRows.trainers} onChange={onChange} />
+          <TeamsTab data={entireData.teams} onChange={onChange} />
         </TabPanel>
         <TabPanel value="player">
-          <TabData data={userClubRoleRows.players} onChange={onChange} />
+          <GeneralTabData data={entireData.players} onChange={onChange} />
         </TabPanel>
       </TabContext>
     </div>

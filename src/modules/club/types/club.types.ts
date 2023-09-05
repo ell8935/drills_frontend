@@ -1,4 +1,5 @@
-import { RolesNames, UserClubRole } from "../../users/types/userTypes";
+import { Team } from "../../teams/teamsTypes";
+import { RolesNames, User, UserClubRole } from "../../users/types/userTypes";
 
 export interface Club {
   clubId: string;
@@ -13,12 +14,16 @@ export interface Club {
   website: string;
   email: string;
   phoneNumber: string;
+  userClubRoles?: UserClubRole[];
+  teams?: Team[];
+  joinRequests?: ClubJoinRequest[];
 }
 
 export interface UserClubRoleRowsData {
   managers: UserClubRole[];
   trainers: UserClubRole[];
   players: UserClubRole[];
+  teams: Team[];
 }
 
 export type CreateClubProps = Omit<Club, "clubId">;
@@ -26,6 +31,14 @@ export type CreateClubProps = Omit<Club, "clubId">;
 export interface RequestToJoinInput {
   userId: string;
   clubId: string;
+}
+
+export interface ClubJoinRequest {
+  id: string;
+  user: User;
+  club: Club;
+  isApproved: boolean;
+  createdAt: Date;
 }
 
 export interface PlaceholderProps {

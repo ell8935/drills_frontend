@@ -10,9 +10,8 @@ interface TabDataProps {
   onChange: () => void;
 }
 
-const TabData = ({ data, onChange }: TabDataProps) => {
+export const GeneralTabData = ({ data, onChange }: TabDataProps) => {
   const [expandedAccordion, setExpandedAccordion] = useState<string | false>(false);
-  console.log(data);
 
   const handleAccordionChange = (panel: string) => (_event: React.SyntheticEvent | MouseEvent, isExpanded: boolean) => {
     setExpandedAccordion(isExpanded ? panel : false);
@@ -50,5 +49,3 @@ const TabData = ({ data, onChange }: TabDataProps) => {
     </div>
   );
 };
-
-export default TabData;
