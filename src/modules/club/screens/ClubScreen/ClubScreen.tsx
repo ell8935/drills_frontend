@@ -9,15 +9,12 @@ import { AssignUserModal } from "../../modals/AssignUserModal";
 import { Button } from "@material-ui/core";
 import { UserClubRoleRowsData } from "../../types/club.types";
 import { setClubId } from "../../../../shared/utils/localStorageUtils";
-import { getAllTeamsByClubId } from "../../../teams/api/getAllTeamsByClubId";
 
 const ClubScreen = () => {
   const { id } = useParams();
   const { data: dataClub, isLoading, isError } = useQuery("getClub", () => getClub(id!));
-  const { data: dataTeams } = useQuery("getAllTeamsByClubId", () => getAllTeamsByClubId(id!));
   const { data: dataUserClubRole, refetch: refetchUserClubRole } = useQuery("getUserClubRole", () => getUserClubRole());
   const [isAssignUserModalOpen, setIsAssignUserModalOpen] = useState<boolean>(false);
-  console.log(dataTeams);
 
   const [entireData, setEntireData] = useState<UserClubRoleRowsData>({
     managers: [],
