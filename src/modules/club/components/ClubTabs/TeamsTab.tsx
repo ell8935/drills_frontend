@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails, Typography, IconButton } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { postRemoveEntity } from "../../api/postRemoveEntity";
 import { Team } from "../../../teams/teamsTypes";
+import { postDeleteTeam } from "../../../teams/api/postDeleteTeam";
 
 interface TabDataProps {
   data: Team[];
@@ -12,13 +12,14 @@ interface TabDataProps {
 
 export const TeamsTab = ({ data, onChange }: TabDataProps) => {
   const [expandedAccordion, setExpandedAccordion] = useState<string | false>(false);
+  console.log(data);
 
   const handleAccordionChange = (panel: string) => (_event: React.SyntheticEvent | MouseEvent, isExpanded: boolean) => {
     setExpandedAccordion(isExpanded ? panel : false);
   };
 
-  const handleDeleteEntity = async ({ entityId }: { entityId: string }) => {
-    await postRemoveEntity({ id: entityId });
+  const handleDeleteEntity = async ({ teamId }: { teamId: string }) => {
+    await postDeleteTeam({ teamId });
     onChange();
   };
 
@@ -39,7 +40,7 @@ export const TeamsTab = ({ data, onChange }: TabDataProps) => {
           </AccordionSummary>
           <AccordionDetails>
             <div>
-              <IconButton onClick={() => handleDeleteEntity({ entityId: entity.teamId })}>
+              <IconButton onClick={() => handleDeleteEntity({ teamId: entity.teamId })}>
                 <DeleteForeverIcon />
               </IconButton>
             </div>

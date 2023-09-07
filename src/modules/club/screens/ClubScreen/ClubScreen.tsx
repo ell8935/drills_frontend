@@ -12,7 +12,7 @@ import { setClubId } from "../../../../shared/utils/localStorageUtils";
 
 const ClubScreen = () => {
   const { id } = useParams();
-  const { data: dataClub, isLoading, isError } = useQuery("getClub", () => getClub(id!));
+  const { data: dataClub, isLoading, isError, refetch: refetchClub } = useQuery("getClub", () => getClub(id!));
   const { data: dataUserClubRole, refetch: refetchUserClubRole } = useQuery("getUserClubRole", () => getUserClubRole());
   const [isAssignUserModalOpen, setIsAssignUserModalOpen] = useState<boolean>(false);
 
@@ -41,6 +41,7 @@ const ClubScreen = () => {
 
   const handleRerender = async () => {
     await refetchUserClubRole();
+    await refetchClub();
   };
 
   if (isError) return "Error";

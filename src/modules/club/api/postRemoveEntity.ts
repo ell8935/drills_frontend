@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const postRemoveEntity = async ({ id }: { id: string }) =>
+export const postRemoveUserClubRole = async ({ id }: { id: string }) =>
   axios({
     data: { id },
     method: "POST",
-    url: "club/removeEntity",
+    url: "club/removeUserClubRole",
   });

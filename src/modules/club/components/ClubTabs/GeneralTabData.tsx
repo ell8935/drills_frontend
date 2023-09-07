@@ -3,7 +3,7 @@ import { Accordion, AccordionSummary, AccordionDetails, Typography, IconButton }
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { UserClubRole } from "../../../users/types/userTypes";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { postRemoveEntity } from "../../api/postRemoveEntity";
+import { postRemoveUserClubRole } from "../../api/postRemoveEntity";
 
 interface TabDataProps {
   data: UserClubRole[];
@@ -18,7 +18,7 @@ export const GeneralTabData = ({ data, onChange }: TabDataProps) => {
   };
 
   const handleDeleteEntity = async ({ entityId }: { entityId: string }) => {
-    await postRemoveEntity({ id: entityId });
+    await postRemoveUserClubRole({ id: entityId });
     onChange();
   };
 
