@@ -7,20 +7,23 @@ import { getUserClubRole } from "../../api/getUserClubRole";
 import { useEffect, useState } from "react";
 import { AssignUserModal } from "../../modals/AssignUserModal";
 import { Button } from "@material-ui/core";
-import { UserClubRoleRowsData } from "../../types/club.types";
 import { setClubId } from "../../../../shared/utils/localStorageUtils";
+import { ClubTabsDataProps } from "../../types/club.types";
 
 const ClubScreen = () => {
   const { id } = useParams();
   const { data: dataClub, isLoading, isError, refetch: refetchClub } = useQuery("getClub", () => getClub(id!));
-  const { data: dataUserClubRole, refetch: refetchUserClubRole } = useQuery("getUserClubRole", () => getUserClubRole());
+  const { data: dataUserClubRole, refetch: refetchUserClubRole } = useQuery("getUserClubRole", () =>
+    getUserClubRole(id!)
+  );
   const [isAssignUserModalOpen, setIsAssignUserModalOpen] = useState<boolean>(false);
 
-  const [entireData, setEntireData] = useState<UserClubRoleRowsData>({
+  const [entireData, setEntireData] = useState<ClubTabsDataProps>({
     managers: [],
     trainers: [],
     players: [],
     teams: [],
+    joinRequests: [],
   });
 
   useEffect(() => {
@@ -30,8 +33,9 @@ const ClubScreen = () => {
       const trainers = dataUserClubRole.filter((item) => item.roleName === "trainer");
       const players = dataUserClubRole.filter((item) => item.roleName === "player");
       const teams = dataClub?.teams;
+      const joinRequests = dataClub?.joinRequests;
 
-      setEntireData({ managers, players, trainers, teams: teams || [] });
+      setEntireData({ managers, players, trainers, teams: teams || [], joinRequests: joinRequests || [] });
     }
   }, [dataUserClubRole, id, dataClub]);
 

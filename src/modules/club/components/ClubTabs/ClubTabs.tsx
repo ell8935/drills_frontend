@@ -4,13 +4,14 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@material-ui/core";
-import { UserClubRoleRowsData } from "../../types/club.types";
+import { ClubTabsDataProps } from "../../types/club.types";
 import { EntitysNames, RolesNames } from "../../../users/types/userTypes";
 import { GeneralTabData } from "./GeneralTabData";
 import { TeamsTab } from "./TeamsTab";
+import { PendingTab } from "./PendingTab";
 
 interface ClubTabsProps {
-  entireData: UserClubRoleRowsData;
+  entireData: ClubTabsDataProps;
   onChange: () => void;
 }
 
@@ -30,6 +31,7 @@ const ClubTabs = ({ entireData, onChange }: ClubTabsProps) => {
             <Tab label="Trainers" value="trainer" />
             <Tab label="Teams" value="team" />
             <Tab label="Players" value="player" />
+            <Tab label="Pending users" value="pendingUsers" />
           </TabList>
         </Box>
         <TabPanel value="manager">
@@ -43,6 +45,9 @@ const ClubTabs = ({ entireData, onChange }: ClubTabsProps) => {
         </TabPanel>
         <TabPanel value="player">
           <GeneralTabData data={entireData.players} onChange={onChange} />
+        </TabPanel>
+        <TabPanel value="pendingUsers">
+          <PendingTab data={entireData.joinRequests} onChange={onChange} />
         </TabPanel>
       </TabContext>
     </div>

@@ -19,11 +19,12 @@ export interface Club {
   joinRequests?: ClubJoinRequest[];
 }
 
-export interface UserClubRoleRowsData {
+export interface ClubTabsDataProps {
   managers: UserClubRole[];
   trainers: UserClubRole[];
   players: UserClubRole[];
   teams: Team[];
+  joinRequests: ClubJoinRequest[];
 }
 
 export type CreateClubProps = Omit<Club, "clubId">;

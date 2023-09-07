@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { Accordion, AccordionSummary, AccordionDetails, Typography, IconButton } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Team } from "../../../teams/teamsTypes";
 import { postDeleteTeam } from "../../../teams/api/postDeleteTeam";
+import { ClubJoinRequest } from "../../types/club.types";
 
 interface TabDataProps {
-  data: Team[];
+  data: ClubJoinRequest[];
   onChange: () => void;
 }
 
-export const TeamsTab = ({ data, onChange }: TabDataProps) => {
+export const PendingTab = ({ data, onChange }: TabDataProps) => {
   const [expandedAccordion, setExpandedAccordion] = useState<string | false>(false);
+  console.log(data);
 
   const handleAccordionChange = (panel: string) => (_event: React.SyntheticEvent | MouseEvent, isExpanded: boolean) => {
     setExpandedAccordion(isExpanded ? panel : false);
@@ -26,20 +27,20 @@ export const TeamsTab = ({ data, onChange }: TabDataProps) => {
     <div>
       {data.map((entity) => (
         <Accordion
-          key={entity.teamId}
-          expanded={expandedAccordion === entity.teamId}
-          onChange={handleAccordionChange(entity.teamId)}
+          key={entity.id}
+          expanded={expandedAccordion === entity.id}
+          onChange={handleAccordionChange(entity.id)}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls={`${entity.teamId}-content`}
-            id={`${entity.teamId}-header`}
+            aria-controls={`${entity.id}-content`}
+            id={`${entity.id}-header`}
           >
-            <Typography>{entity.teamName}</Typography>
+            <Typography>{entity.user.fullName}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <div>
-              <IconButton onClick={() => handleDeleteEntity({ teamId: entity.teamId })}>
+              <IconButton onClick={() => handleDeleteEntity({ teamId: entity.user.userId })}>
                 <DeleteForeverIcon />
               </IconButton>
             </div>
